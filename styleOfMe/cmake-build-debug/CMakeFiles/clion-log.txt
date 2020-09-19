@@ -1,0 +1,4 @@
+D:\Clion\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=D:/Clion/MinGW/bin/mingw32-make.exe -DCMAKE_C_COMPILER=D:/Clion/MinGW/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/Clion/MinGW/bin/g++.exe -G "CodeBlocks - MinGW Makefiles" E:\just_do_it\styleOfMe
+-- Configuring done
+-- Generating done
+-- Build files have been written to: E:/just_do_it/styleOfMe/cmake-build-debug
