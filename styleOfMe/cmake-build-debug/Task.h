@@ -10,7 +10,7 @@
 using namespace std;
 
 enum TaskLevel {
-    level1, level2, level3
+    level_1, level_2, level_3
 };
 
 class Task {
