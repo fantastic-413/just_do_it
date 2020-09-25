@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/styleOfMe.dir/AllTask.cpp.obj"
+  "CMakeFiles/styleOfMe.dir/DayTask.cpp.obj"
   "CMakeFiles/styleOfMe.dir/Task.cpp.obj"
   "CMakeFiles/styleOfMe.dir/main.cpp.obj"
   "libstyleOfMe.dll.a"

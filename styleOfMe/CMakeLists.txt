@@ -3,4 +3,4 @@ project(styleOfMe)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(styleOfMe main.cpp cmake-build-debug/Task.cpp cmake-build-debug/Task.h)
+add_executable(styleOfMe main.cpp Task.cpp Task.h DayTask.cpp DayTask.h AllTask.cpp AllTask.h)

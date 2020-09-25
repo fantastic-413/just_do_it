@@ -80,10 +80,22 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="E:/just_do_it/styleOfMe/cmake-build-debug/Task.cpp">
+		<Unit filename="E:/just_do_it/styleOfMe/AllTask.cpp">
 			<Option target="styleOfMe"/>
 		</Unit>
-		<Unit filename="E:/just_do_it/styleOfMe/cmake-build-debug/Task.h">
+		<Unit filename="E:/just_do_it/styleOfMe/AllTask.h">
+			<Option target="styleOfMe"/>
+		</Unit>
+		<Unit filename="E:/just_do_it/styleOfMe/DayTask.cpp">
+			<Option target="styleOfMe"/>
+		</Unit>
+		<Unit filename="E:/just_do_it/styleOfMe/DayTask.h">
+			<Option target="styleOfMe"/>
+		</Unit>
+		<Unit filename="E:/just_do_it/styleOfMe/Task.cpp">
+			<Option target="styleOfMe"/>
+		</Unit>
+		<Unit filename="E:/just_do_it/styleOfMe/Task.h">
 			<Option target="styleOfMe"/>
 		</Unit>
 		<Unit filename="E:/just_do_it/styleOfMe/main.cpp">

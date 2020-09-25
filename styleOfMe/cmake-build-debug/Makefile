@@ -122,6 +122,60 @@ styleOfMe/fast:
 	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/build
 .PHONY : styleOfMe/fast
 
+AllTask.obj: AllTask.cpp.obj
+
+.PHONY : AllTask.obj
+
+# target to build an object file
+AllTask.cpp.obj:
+	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/AllTask.cpp.obj
+.PHONY : AllTask.cpp.obj
+
+AllTask.i: AllTask.cpp.i
+
+.PHONY : AllTask.i
+
+# target to preprocess a source file
+AllTask.cpp.i:
+	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/AllTask.cpp.i
+.PHONY : AllTask.cpp.i
+
+AllTask.s: AllTask.cpp.s
+
+.PHONY : AllTask.s
+
+# target to generate assembly for a file
+AllTask.cpp.s:
+	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/AllTask.cpp.s
+.PHONY : AllTask.cpp.s
+
+DayTask.obj: DayTask.cpp.obj
+
+.PHONY : DayTask.obj
+
+# target to build an object file
+DayTask.cpp.obj:
+	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/DayTask.cpp.obj
+.PHONY : DayTask.cpp.obj
+
+DayTask.i: DayTask.cpp.i
+
+.PHONY : DayTask.i
+
+# target to preprocess a source file
+DayTask.cpp.i:
+	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/DayTask.cpp.i
+.PHONY : DayTask.cpp.i
+
+DayTask.s: DayTask.cpp.s
+
+.PHONY : DayTask.s
+
+# target to generate assembly for a file
+DayTask.cpp.s:
+	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/DayTask.cpp.s
+.PHONY : DayTask.cpp.s
+
 Task.obj: Task.cpp.obj
 
 .PHONY : Task.obj
@@ -185,6 +239,12 @@ help:
 	@echo ... styleOfMe
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... AllTask.obj
+	@echo ... AllTask.i
+	@echo ... AllTask.s
+	@echo ... DayTask.obj
+	@echo ... DayTask.i
+	@echo ... DayTask.s
 	@echo ... Task.obj
 	@echo ... Task.i
 	@echo ... Task.s

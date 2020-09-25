@@ -70,33 +70,63 @@ CMakeFiles/styleOfMe.dir/main.cpp.s: cmake_force
 	D:\Clion\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\just_do_it\styleOfMe\main.cpp -o CMakeFiles\styleOfMe.dir\main.cpp.s
 
 CMakeFiles/styleOfMe.dir/Task.cpp.obj: CMakeFiles/styleOfMe.dir/flags.make
-CMakeFiles/styleOfMe.dir/Task.cpp.obj: Task.cpp
+CMakeFiles/styleOfMe.dir/Task.cpp.obj: ../Task.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\just_do_it\styleOfMe\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/styleOfMe.dir/Task.cpp.obj"
-	D:\Clion\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\styleOfMe.dir\Task.cpp.obj -c E:\just_do_it\styleOfMe\cmake-build-debug\Task.cpp
+	D:\Clion\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\styleOfMe.dir\Task.cpp.obj -c E:\just_do_it\styleOfMe\Task.cpp
 
 CMakeFiles/styleOfMe.dir/Task.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/styleOfMe.dir/Task.cpp.i"
-	D:\Clion\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\just_do_it\styleOfMe\cmake-build-debug\Task.cpp > CMakeFiles\styleOfMe.dir\Task.cpp.i
+	D:\Clion\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\just_do_it\styleOfMe\Task.cpp > CMakeFiles\styleOfMe.dir\Task.cpp.i
 
 CMakeFiles/styleOfMe.dir/Task.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/styleOfMe.dir/Task.cpp.s"
-	D:\Clion\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\just_do_it\styleOfMe\cmake-build-debug\Task.cpp -o CMakeFiles\styleOfMe.dir\Task.cpp.s
+	D:\Clion\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\just_do_it\styleOfMe\Task.cpp -o CMakeFiles\styleOfMe.dir\Task.cpp.s
+
+CMakeFiles/styleOfMe.dir/DayTask.cpp.obj: CMakeFiles/styleOfMe.dir/flags.make
+CMakeFiles/styleOfMe.dir/DayTask.cpp.obj: ../DayTask.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\just_do_it\styleOfMe\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/styleOfMe.dir/DayTask.cpp.obj"
+	D:\Clion\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\styleOfMe.dir\DayTask.cpp.obj -c E:\just_do_it\styleOfMe\DayTask.cpp
+
+CMakeFiles/styleOfMe.dir/DayTask.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/styleOfMe.dir/DayTask.cpp.i"
+	D:\Clion\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\just_do_it\styleOfMe\DayTask.cpp > CMakeFiles\styleOfMe.dir\DayTask.cpp.i
+
+CMakeFiles/styleOfMe.dir/DayTask.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/styleOfMe.dir/DayTask.cpp.s"
+	D:\Clion\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\just_do_it\styleOfMe\DayTask.cpp -o CMakeFiles\styleOfMe.dir\DayTask.cpp.s
+
+CMakeFiles/styleOfMe.dir/AllTask.cpp.obj: CMakeFiles/styleOfMe.dir/flags.make
+CMakeFiles/styleOfMe.dir/AllTask.cpp.obj: ../AllTask.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\just_do_it\styleOfMe\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/styleOfMe.dir/AllTask.cpp.obj"
+	D:\Clion\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\styleOfMe.dir\AllTask.cpp.obj -c E:\just_do_it\styleOfMe\AllTask.cpp
+
+CMakeFiles/styleOfMe.dir/AllTask.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/styleOfMe.dir/AllTask.cpp.i"
+	D:\Clion\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\just_do_it\styleOfMe\AllTask.cpp > CMakeFiles\styleOfMe.dir\AllTask.cpp.i
+
+CMakeFiles/styleOfMe.dir/AllTask.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/styleOfMe.dir/AllTask.cpp.s"
+	D:\Clion\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\just_do_it\styleOfMe\AllTask.cpp -o CMakeFiles\styleOfMe.dir\AllTask.cpp.s
 
 # Object files for target styleOfMe
 styleOfMe_OBJECTS = \
 "CMakeFiles/styleOfMe.dir/main.cpp.obj" \
-"CMakeFiles/styleOfMe.dir/Task.cpp.obj"
+"CMakeFiles/styleOfMe.dir/Task.cpp.obj" \
+"CMakeFiles/styleOfMe.dir/DayTask.cpp.obj" \
+"CMakeFiles/styleOfMe.dir/AllTask.cpp.obj"
 
 # External object files for target styleOfMe
 styleOfMe_EXTERNAL_OBJECTS =
 
 styleOfMe.exe: CMakeFiles/styleOfMe.dir/main.cpp.obj
 styleOfMe.exe: CMakeFiles/styleOfMe.dir/Task.cpp.obj
+styleOfMe.exe: CMakeFiles/styleOfMe.dir/DayTask.cpp.obj
+styleOfMe.exe: CMakeFiles/styleOfMe.dir/AllTask.cpp.obj
 styleOfMe.exe: CMakeFiles/styleOfMe.dir/build.make
 styleOfMe.exe: CMakeFiles/styleOfMe.dir/linklibs.rsp
 styleOfMe.exe: CMakeFiles/styleOfMe.dir/objects1.rsp
 styleOfMe.exe: CMakeFiles/styleOfMe.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\just_do_it\styleOfMe\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable styleOfMe.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\just_do_it\styleOfMe\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable styleOfMe.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\styleOfMe.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

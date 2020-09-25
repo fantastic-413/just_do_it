@@ -6,7 +6,19 @@
 
 #IncludeRegexTransform: 
 
+E:/just_do_it/styleOfMe/cmake-build-debug/Task.cpp
+Task.h
+E:/just_do_it/styleOfMe/cmake-build-debug/Task.h
+
+E:/just_do_it/styleOfMe/cmake-build-debug/Task.h
+string
+-
+ostream
+-
+
 E:/just_do_it/styleOfMe/main.cpp
 iostream
 -
+cmake-build-debug/Task.h
+E:/just_do_it/styleOfMe/cmake-build-debug/Task.h
 
