@@ -61,6 +61,6 @@ void Task::setTaskLabel(const string &taskLabel) {
 
 ostream &operator<<(ostream &os, const Task &task) {
     os << "start_time: " << task.start_time << " end_time: " << task.end_time << " task_name: " << task.task_name
-       << " task_level: " << task.task_level << " task_label: " << task.task_label;
+       << " task_level: " << task.task_level << " task_label: " << task.task_label << endl;
     return os;
 }
