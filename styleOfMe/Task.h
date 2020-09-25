@@ -5,8 +5,7 @@
 #ifndef STYLEOFME_TASK_H
 #define STYLEOFME_TASK_H
 
-#include<string>
-#include <ostream>
+#include <iostream>
 
 using namespace std;
 
