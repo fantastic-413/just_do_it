@@ -28,9 +28,9 @@ private:
     string task_label;
 public:
     //创建任务  setTask()
-    Task setTask();
+    static Task setTask();
 
-    //构造函数
+    //构造函数与析构函数
     Task();
 
     Task(const string &startTime, const string &endTime, const string &taskName, TaskLevel taskLevel,
@@ -61,6 +61,11 @@ public:
 
     //打印函数
     friend ostream &operator<<(ostream &os, const Task &task);
+
+    //重载==和！=
+    bool operator==(const Task &rhs) const;
+
+    bool operator!=(const Task &rhs) const;
 };
 
 
