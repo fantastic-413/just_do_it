@@ -203,6 +203,33 @@ Task.cpp.s:
 	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/Task.cpp.s
 .PHONY : Task.cpp.s
 
+global.obj: global.cpp.obj
+
+.PHONY : global.obj
+
+# target to build an object file
+global.cpp.obj:
+	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/global.cpp.obj
+.PHONY : global.cpp.obj
+
+global.i: global.cpp.i
+
+.PHONY : global.i
+
+# target to preprocess a source file
+global.cpp.i:
+	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/global.cpp.i
+.PHONY : global.cpp.i
+
+global.s: global.cpp.s
+
+.PHONY : global.s
+
+# target to generate assembly for a file
+global.cpp.s:
+	$(MAKE) -f CMakeFiles\styleOfMe.dir\build.make CMakeFiles/styleOfMe.dir/global.cpp.s
+.PHONY : global.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -248,6 +275,9 @@ help:
 	@echo ... Task.obj
 	@echo ... Task.i
 	@echo ... Task.s
+	@echo ... global.obj
+	@echo ... global.i
+	@echo ... global.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

@@ -98,6 +98,12 @@
 		<Unit filename="E:/just_do_it/styleOfMe/Task.h">
 			<Option target="styleOfMe"/>
 		</Unit>
+		<Unit filename="E:/just_do_it/styleOfMe/global.cpp">
+			<Option target="styleOfMe"/>
+		</Unit>
+		<Unit filename="E:/just_do_it/styleOfMe/global.h">
+			<Option target="styleOfMe"/>
+		</Unit>
 		<Unit filename="E:/just_do_it/styleOfMe/main.cpp">
 			<Option target="styleOfMe"/>
 		</Unit>

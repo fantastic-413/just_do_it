@@ -3,10 +3,10 @@
 //
 
 #include "DayTask.h"
+#include "global.h"
 
 //添加任务 addTask()
-void DayTask::addTask() {
-    Task task = Task::setTask();
+void DayTask::addTask(Task task) {
     task_label_list.push_back(task.getTaskLabel());
     task_list.push_back(task);
 }
@@ -19,13 +19,14 @@ void DayTask::deleteTask(Task task) {
 
 //修改任务 modifyTask()
 void DayTask::modifyTask(Task task) {
-    task = task.setTask();
+
 }
 
 //完成任务  finishTask()
 void DayTask::finishTask(Task task) {
     task_label_list.remove(task.getTaskLabel());
     task_list.remove(task);
+    allTask.addTask(task);
 }
 
 //到时提醒  ring()

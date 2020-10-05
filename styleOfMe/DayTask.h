@@ -19,11 +19,11 @@ private:
     string time_of_Today;
     //标签集合  <label> task_label_list
     list<string> task_label_list;
-    //任务集合  <Task>
+    //任务集合  <Task> task_list
     list<Task> task_list;
 public:
     //添加任务 addTask()
-    void addTask();
+    void addTask(Task task);
     //删除任务 deleteTask(Task task)
     void deleteTask(Task task);
     //修改任务 modifyTask(Task task)

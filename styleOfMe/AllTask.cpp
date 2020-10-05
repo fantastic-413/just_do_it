@@ -4,7 +4,7 @@
 
 #include "AllTask.h"
 //添加任务 addTask()
-void AllTask::addTask() {
+void AllTask::addTask(Task task) {
 
 }
 //删除任务 deleteTask(Task task)
@@ -22,27 +22,27 @@ list<Task> AllTask::searchTask(string task_name) {
 //构造函数和析构函数
 AllTask::AllTask() {}
 
-AllTask::AllTask(const list<DayTask> &dayTaskList) : DayTask_list(dayTaskList) {}
+AllTask::AllTask(const list<DayTask> &dayTaskList) : dayTask_list(dayTaskList) {}
 
 AllTask::~AllTask() {
 
 }
 //Getter and Setter
 const list<DayTask> &AllTask::getDayTaskList() const {
-    return DayTask_list;
+    return dayTask_list;
 }
 
 void AllTask::setDayTaskList(const list<DayTask> &dayTaskList) {
-    DayTask_list = dayTaskList;
+    dayTask_list = dayTaskList;
 }
 //打印函数
 ostream &operator<<(ostream &os, const AllTask &task) {
-    os << "DayTask_list: " << task.DayTask_list;
+    os << "dayTask_list: " << task.dayTask_list;
     return os;
 }
 //重载==和！=
 bool AllTask::operator==(const AllTask &rhs) const {
-    return DayTask_list == rhs.DayTask_list;
+    return dayTask_list == rhs.dayTask_list;
 }
 
 bool AllTask::operator!=(const AllTask &rhs) const {

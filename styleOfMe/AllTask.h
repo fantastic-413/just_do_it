@@ -12,11 +12,11 @@ using namespace std;
 
 class AllTask {
 private:
-    //日任务集合  <DayTask> DayTask_list
-    list<DayTask> DayTask_list;
+    //日任务集合  <DayTask> dayTask_list
+    list<DayTask> dayTask_list;
 public:
     //添加任务 addTask()
-    void addTask();
+    void addTask(Task task);
     //删除任务 deleteTask(Task task)
     void deleteTask(Task task);
     //复原任务  renewTask()
