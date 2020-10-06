@@ -9,6 +9,7 @@
 void DayTask::addTask(Task task) {
     task_label_list.push_back(task.getTaskLabel());
     task_list.push_back(task);
+    task_list.sort();
 }
 
 //删除任务 deleteTask()

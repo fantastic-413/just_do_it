@@ -6,6 +6,7 @@
 //添加任务 addTask()
 void AllTask::addTask(Task task) {
     allTask_list.push_back(task);
+    allTask_list.sort();
 }
 //删除任务 deleteTask(Task task)
 void AllTask::deleteTask(Task task) {
