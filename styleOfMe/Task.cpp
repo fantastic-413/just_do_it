@@ -76,3 +76,17 @@ bool Task::operator==(const Task &rhs) const {
 bool Task::operator!=(const Task &rhs) const {
     return !(rhs == *this);
 }
+
+bool Task::operator<(const Task &rhs) const {
+    if(this->getStartTime() != rhs.getStartTime())
+        return this->getStartTime() < rhs.getStartTime();
+    else
+        return this->getTaskLevel() > rhs.getTaskLevel();
+}
+
+bool Task::operator>(const Task &rhs) const {
+    if(this->getStartTime() != rhs.getStartTime())
+        return this->getStartTime() > rhs.getStartTime();
+    else
+        return this->getTaskLevel() < rhs.getTaskLevel();
+}

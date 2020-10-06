@@ -59,10 +59,14 @@ public:
     //打印函数
     friend ostream &operator<<(ostream &os, const Task &task);
 
-    //重载==和！=
+    //重载==和！=、<、>
     bool operator==(const Task &rhs) const;
 
     bool operator!=(const Task &rhs) const;
+
+    bool operator<(const Task &rhs) const;
+
+    bool operator>(const Task &rhs) const;
 };
 
 

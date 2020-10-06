@@ -13,7 +13,7 @@ void AllTask::deleteTask(Task task) {
 }
 //复原任务  renewTask()
 void AllTask::renewTask(Task task) {
-    
+
 }
 //查询任务  searchTask()
 list<Task> AllTask::searchTask(string task_name) {
