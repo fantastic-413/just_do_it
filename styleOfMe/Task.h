@@ -27,9 +27,6 @@ private:
     //标签 task_label（初始化为null）
     string task_label;
 public:
-    //创建任务  setTask()
-    static Task setTask();
-
     //构造函数与析构函数
     Task();
 

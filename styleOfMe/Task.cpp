@@ -4,27 +4,6 @@
 
 #include "Task.h"
 
-//创建任务 setTask()函数实现
-Task Task::setTask() {
-    Task task;
-    cout << "请输入任务名称" << endl;
-    cin >> task.task_name;
-    cout << "请输入任务开始时间" << endl;
-    cin >> task.start_time;
-    cout << "请输入任务结束时间" << endl;
-    cin >> task.end_time;
-    cout << "请选择任务等级(level_1, level_2, level_3)" << endl;
-    int level;
-    cin >> level;
-    if (level == 1)
-        task.task_level = level_1;
-    else
-        task.task_level = (level == 2) ? level_2 : level_3;
-    cout << "请设置任务标签" << endl;
-    cin>>task.task_label;
-
-    return task;
-}
 
 //构造函数和析构函数
 Task::Task() {}

@@ -17,7 +17,7 @@ class DayTask {
 private:
     //当天时间  time_Of_Today
     string time_of_Today;
-    //标签集合  <label> task_label_list
+    //任务标签集合  <label> task_label_list
     list<string> task_label_list;
     //任务集合  <Task> task_list
     list<Task> task_list;

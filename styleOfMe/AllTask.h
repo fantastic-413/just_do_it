@@ -13,7 +13,7 @@ using namespace std;
 class AllTask {
 private:
     //日任务集合  <DayTask> dayTask_list
-    list<DayTask> dayTask_list;
+    list<Task> allTask_list;
 public:
     //添加任务 addTask()
     void addTask(Task task);
@@ -26,19 +26,22 @@ public:
     //构造函数和析构函数
     AllTask();
 
-    AllTask(const list<DayTask> &dayTaskList);
+    AllTask(const list<Task> &allTaskList);
 
     virtual ~AllTask();
     //Getter and Setter
-    const list<DayTask> &getDayTaskList() const;
+    const list<Task> &getAllTaskList() const;
 
-    void setDayTaskList(const list<DayTask> &dayTaskList);
+    void setAllTaskList(const list<Task> &allTaskList);
     //打印函数
     friend ostream &operator<<(ostream &os, const AllTask &task);
+
     //重载==和！=
     bool operator==(const AllTask &rhs) const;
 
     bool operator!=(const AllTask &rhs) const;
+
+
 };
 
 
