@@ -5,7 +5,7 @@
 #ifndef STYLEOFME_GLOBAL_H
 #define STYLEOFME_GLOBAL_H
 
-
+#include<iostream>
 #include "AllTask.h"
 
 //总任务类 allTask 全局变量

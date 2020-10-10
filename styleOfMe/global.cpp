@@ -3,3 +3,4 @@
 //
 
 #include "global.h"
+AllTask allTask = AllTask();
