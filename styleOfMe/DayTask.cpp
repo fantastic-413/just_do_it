@@ -10,29 +10,23 @@ void DayTask::addTask(Task task) {
     task_label_list.push_back(task.getTaskLabel());
     task_list.push_back(task);
     task_list.sort();
+    allTask.addAllTask(task);
+    allTask.setDayTaskMap(time_of_Today,task_list);
 }
 
 //删除任务 deleteTask()
 void DayTask::deleteTask(Task task) {
     task_label_list.remove(task.getTaskLabel());
     task_list.remove(task);
-}
-
-//修改任务 modifyTask()
-void DayTask::modifyTask(Task task) {
-
+    allTask.deleteFromAllTask(task);
+    allTask.setDayTaskMap(time_of_Today,task_list);
 }
 
 //完成任务  finishTask()
 void DayTask::finishTask(Task task) {
     task_label_list.remove(task.getTaskLabel());
     task_list.remove(task);
-    allTask.addTask(task);
-}
-
-//到时提醒  ring()
-void DayTask::ring(string end_time) {
-
+    allTask.addFinishedTask(task);
 }
 
 //构造函数和析构函数

@@ -26,12 +26,8 @@ public:
     void addTask(Task task);
     //删除任务 deleteTask(Task task)
     void deleteTask(Task task);
-    //修改任务 modifyTask(Task task)
-    void modifyTask(Task task);
     //完成任务  finishTask()
     void finishTask(Task task);
-    //到时提醒  ring()
-    void ring(string end_time);
     //构造函数与析构函数
     DayTask();
 

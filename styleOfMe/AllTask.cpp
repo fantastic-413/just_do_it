@@ -3,18 +3,27 @@
 //
 
 #include "AllTask.h"
-//添加任务 addTask()
-void AllTask::addTask(Task task) {
+//添加到总任务  addAllTask(Task task)
+void AllTask::addAllTask(Task task) {
     allTask_list.push_back(task);
     allTask_list.sort();
 }
-//删除任务 deleteTask(Task task)
-void AllTask::deleteTask(Task task) {
+//添加到已完成任务 addFinishedTask(Task task)
+void AllTask::addFinishedTask(Task task) {
+    finishedTask_list.push_back(task);
+    finishedTask_list.sort();
+}
+//删除自总任务  deleteFromAllTask(Task task)
+void AllTask::deleteFromAllTask(Task task) {
     allTask_list.remove(task);
 }
-//复原任务  renewTask()
-void AllTask::renewTask(Task task) {
-
+//依据时间(某天)查找对应任务集合 getDayTaskMap(string time_of_Toady)
+list<Task> &AllTask::getDayTaskMap(string time_of_Today){
+    return DayTask_map[time_of_Today];
+}
+//添加每一天及对应任务map集合 setDayTaskMap(string time_of_Today,list<Task> task_listOfDay)
+void AllTask::setDayTaskMap(string time_of_Today,list<Task> task_listOfDay) {
+    DayTask_map[time_of_Today] = task_listOfDay;
 }
 //查询任务  searchTask()
 list<Task> AllTask::searchTask(string task_name) {
@@ -29,11 +38,14 @@ list<Task> AllTask::searchTask(string task_name) {
 //构造函数和析构函数
 AllTask::AllTask() {}
 
-AllTask::AllTask(const list<Task> &allTaskList) : allTask_list(allTaskList) {}
+
 
 AllTask::~AllTask() {
 
 }
+
+AllTask::AllTask(const list<Task> &allTaskList, const list<Task> &finishedTaskList, const map<string, list<Task>>&dayTaskMap)
+        : allTask_list(allTaskList), finishedTask_list(finishedTaskList), DayTask_map(dayTaskMap) {}
 //Getter and Setter
 const list<Task> &AllTask::getAllTaskList() const {
     return allTask_list;
@@ -42,19 +54,23 @@ const list<Task> &AllTask::getAllTaskList() const {
 void AllTask::setAllTaskList(const list<Task> &allTaskList) {
     allTask_list = allTaskList;
 }
-//打印函数
-ostream &operator<<(ostream &os, const AllTask &task) {
-    os << "allTask_list: " << task.allTask_list;
-    return os;
+
+const list<Task> &AllTask::getFinishedTaskList() const {
+    return finishedTask_list;
 }
+
+void AllTask::setFinishedTaskList(const list<Task> &finishedTaskList) {
+    finishedTask_list = finishedTaskList;
+}
+//打印函数
+
 //重载==和！=
 bool AllTask::operator==(const AllTask &rhs) const {
-    return allTask_list == rhs.allTask_list;
+    return allTask_list == rhs.allTask_list &&
+           finishedTask_list == rhs.finishedTask_list &&
+           DayTask_map == rhs.DayTask_map;
 }
 
 bool AllTask::operator!=(const AllTask &rhs) const {
     return !(rhs == *this);
 }
-
-
-
