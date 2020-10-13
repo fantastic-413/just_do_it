@@ -27,6 +27,7 @@ void DayTask::finishTask(Task task) {
     task_label_list.remove(task.getTaskLabel());
     task_list.remove(task);
     allTask.addFinishedTask(task);
+    allTask.setDayTaskMap(time_of_Today,task_list);
 }
 
 //构造函数和析构函数
