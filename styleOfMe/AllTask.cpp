@@ -17,6 +17,10 @@ void AllTask::addFinishedTask(Task task) {
 void AllTask::deleteFromAllTask(Task task) {
     allTask_list.remove(task);
 }
+//查询时间（某天）是否有对应任务集合
+bool AllTask::ifExistDayTaskList(string time_of_Today){
+    return DayTask_map.count(time_of_Today);
+}
 //依据时间(某天)查找对应任务集合 getDayTaskMap(string time_of_Toady)
 list<Task> &AllTask::getDayTaskMap(string time_of_Today){
     return DayTask_map[time_of_Today];

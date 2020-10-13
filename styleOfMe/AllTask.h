@@ -26,6 +26,8 @@ public:
     void addFinishedTask(Task task);
     //删除自总任务  deleteFromAllTask(Task task)
     void deleteFromAllTask(Task task);
+    //查询时间（某天）是否有对应任务集合
+    bool ifExistDayTaskList(string time_of_Today);
     //依据时间(某天)查找对应任务集合 getDayTaskMap(string time_of_Toady)
     list<Task> &getDayTaskMap(string time_of_Today);
     //添加每一天及对应任务map集合 setDayTaskMap(string time_of_Today,list<Task> task_listOfDay)
