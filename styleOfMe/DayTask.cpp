@@ -11,7 +11,7 @@ void DayTask::addTask(Task task) {
     task_list.push_back(task);
     task_list.sort();
     allTask.addAllTask(task);
-    allTask.setDayTaskMap(time_of_Today,task_list);
+    allTask.setDayTaskMap(time_of_Today,*this);
 }
 
 //删除任务 deleteTask()
@@ -19,7 +19,7 @@ void DayTask::deleteTask(Task task) {
     task_label_list.remove(task.getTaskLabel());
     task_list.remove(task);
     allTask.deleteFromAllTask(task);
-    allTask.setDayTaskMap(time_of_Today,task_list);
+    allTask.setDayTaskMap(time_of_Today,*this);
 }
 
 //完成任务  finishTask()
@@ -27,7 +27,7 @@ void DayTask::finishTask(Task task) {
     task_label_list.remove(task.getTaskLabel());
     task_list.remove(task);
     allTask.addFinishedTask(task);
-    allTask.setDayTaskMap(time_of_Today,task_list);
+    allTask.setDayTaskMap(time_of_Today,*this);
 }
 
 //构造函数和析构函数

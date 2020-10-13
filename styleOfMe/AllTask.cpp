@@ -22,12 +22,12 @@ bool AllTask::ifExistDayTaskList(string time_of_Today){
     return DayTask_map.count(time_of_Today);
 }
 //依据时间(某天)查找对应任务集合 getDayTaskMap(string time_of_Toady)
-list<Task> &AllTask::getDayTaskMap(string time_of_Today){
+DayTask &AllTask::getDayTaskMap(string time_of_Today){
     return DayTask_map[time_of_Today];
 }
 //添加每一天及对应任务map集合 setDayTaskMap(string time_of_Today,list<Task> task_listOfDay)
-void AllTask::setDayTaskMap(string time_of_Today,list<Task> task_listOfDay) {
-    DayTask_map[time_of_Today] = task_listOfDay;
+void AllTask::setDayTaskMap(string time_of_Today,DayTask dayTask) {
+    DayTask_map[time_of_Today] = dayTask;
 }
 //查询任务  searchTask()
 list<Task> AllTask::searchTask(string task_name) {
@@ -48,8 +48,9 @@ AllTask::~AllTask() {
 
 }
 
-AllTask::AllTask(const list<Task> &allTaskList, const list<Task> &finishedTaskList, const map<string, list<Task>>&dayTaskMap)
+AllTask::AllTask(const list<Task> &allTaskList, const list<Task> &finishedTaskList, const map<string,DayTask> &dayTaskMap)
         : allTask_list(allTaskList), finishedTask_list(finishedTaskList), DayTask_map(dayTaskMap) {}
+
 //Getter and Setter
 const list<Task> &AllTask::getAllTaskList() const {
     return allTask_list;

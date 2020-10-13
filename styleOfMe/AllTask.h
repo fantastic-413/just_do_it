@@ -18,7 +18,7 @@ private:
     //已完成任务集合 <Task> finishedTask_list
     list<Task> finishedTask_list;
     //每一天对应任务map集合 <time_of_Today,list<Task>> DayTask_map
-    map<string,list<Task>> DayTask_map;
+    map<string,DayTask> DayTask_map;
 public:
     //添加到总任务  addAllTask(Task task)
     void addAllTask(Task task);
@@ -26,18 +26,18 @@ public:
     void addFinishedTask(Task task);
     //删除自总任务  deleteFromAllTask(Task task)
     void deleteFromAllTask(Task task);
-    //查询时间（某天）是否有对应任务集合
+    //查询时间（某天）是否有对应日任务集合
     bool ifExistDayTaskList(string time_of_Today);
-    //依据时间(某天)查找对应任务集合 getDayTaskMap(string time_of_Toady)
-    list<Task> &getDayTaskMap(string time_of_Today);
-    //添加每一天及对应任务map集合 setDayTaskMap(string time_of_Today,list<Task> task_listOfDay)
-    void setDayTaskMap(string time_of_Today,list<Task> task_listOfDay);
+    //依据时间(某天)查找对应日任务集合 getDayTaskMap(string time_of_Toady)
+    DayTask &getDayTaskMap(string time_of_Today);
+    //添加每一天及对应日任务map集合 setDayTaskMap(string time_of_Today,list<Task> task_listOfDay)
+    void setDayTaskMap(string time_of_Today,DayTask dayTask);
     //查询任务  searchTask()
     list<Task> searchTask(string task_name);
     //构造函数和析构函数
     AllTask();
 
-    AllTask(const list<Task> &allTaskList, const list<Task> &finishedTaskList, const map<string,list<Task>> &dayTaskMap);
+    AllTask(const list<Task> &allTaskList, const list<Task> &finishedTaskList, const map<string,DayTask> &dayTaskMap);
 
     virtual ~AllTask();
     //Getter and Setter
