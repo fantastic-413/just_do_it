@@ -10,6 +10,8 @@
 #include<QTableWidget>
 #include<QMessageBox>
 #include"Task.h"
+#include"DayTask.h"
+#include"global.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -38,6 +40,7 @@ void MainWindow::initial(){
     QTableWidget* tableWidget_6 = new QTableWidget(ui->tab_6);
     QTableWidget* tableWidget_7 = new QTableWidget(ui->tab_7);
 
+  //  label_list << ui->label << ui->label_2 << ui->label_3 << ui->label_4 << ui->label_5 << ui->label_6 << ui->label_7;
     list << tableWidget_1 << tableWidget_2 << tableWidget_3 << tableWidget_4 << tableWidget_5 << tableWidget_6 << tableWidget_7;
     for(int i = 0; i < 7;i++){
         list.at(i)->setFixedSize(700,600);
@@ -76,12 +79,20 @@ void MainWindow::addTask(){
 
     //获取task对应的周 设置task 开始结束时间、任务等级等信息
     QString week = dialog->taskStartTime.toString("ddd");
-    task.setStartTime(dialog->taskEndTime.toString("hh:mm").toStdString());
+    QString time_Of_Task = dialog->taskStartTime.toString("MM-dd");
+    DayTask dayTask;
+    if(allTask.ifExistDayTaskList(time_Of_Task.toStdString())){
+        dayTask = allTask.getDayTaskMap(time_Of_Task.toStdString());
+    }
+    else{
+        dayTask.setTimeOfToday(time_Of_Task.toStdString());
+    }
+    task.setStartTime(dialog->taskStartTime.toString("hh:mm").toStdString());
     task.setEndTime(dialog->taskEndTime.toString("hh:mm").toStdString());
     task.setTaskName(dialog->taskName.toStdString());
     task.setTaskLabel(dialog->taskLabel.toStdString());
-    if(dialog->taskLevel == 1) task.setTaskLevel(TaskLevel::level_1);
-    else if(dialog->taskLevel == 2) task.setTaskLevel(TaskLevel::level_2);
+    if(dialog->taskLevel == "一") task.setTaskLevel(TaskLevel::level_1);
+    else if(dialog->taskLevel == "二") task.setTaskLevel(TaskLevel::level_2);
     else task.setTaskLevel(TaskLevel::level_3);
 
     //设置对应的widget界面
@@ -95,14 +106,23 @@ void MainWindow::addTask(){
         remind_Dialog->exec();
     }
     else{
-        list.at(w)->setItem(row[w],0,new QTableWidgetItem(QString::fromStdString(task.getTaskName())));
-        list.at(w)->setItem(row[w],1,new QTableWidgetItem(dialog->taskLevel));
-        list.at(w)->setItem(row[w],2,new QTableWidgetItem(QString::fromStdString(task.getStartTime())));
-        list.at(w)->setItem(row[w],3,new QTableWidgetItem(QString::fromStdString(task.getEndTime())));
-        list.at(w) ->setItem(row[w],4,new QTableWidgetItem(dialog->taskLabel));
-        row[w]++;
+        //list中添加任务
+        dayTask.addTask(task);
+        int current_Row = 1;
+        for(auto it:dayTask.getTaskList()){
+            QString level;
+            if(it.getTaskLevel() == TaskLevel::level_1) level = "一";
+            else if(it.getTaskLevel() == TaskLevel::level_2) level = "二";
+            else level = "三";
+            list.at(w)->setItem(current_Row,0,new QTableWidgetItem(QString::fromStdString(it.getTaskName())));
+            list.at(w)->setItem(current_Row,1,new QTableWidgetItem(level));
+            list.at(w)->setItem(current_Row,2,new QTableWidgetItem(QString::fromStdString(it.getStartTime())));
+            list.at(w)->setItem(current_Row,3,new QTableWidgetItem(QString::fromStdString(it.getEndTime())));
+            list.at(w) ->setItem(current_Row,4,new QTableWidgetItem(QString::fromStdString((it.getTaskLabel()))));
+            current_Row++;
+        }
+        row[w] = current_Row;
     }
-    allTask.addTask(task);
 }
 
 void MainWindow::deleteTask(){
@@ -129,7 +149,6 @@ void MainWindow::deleteTask(){
         string taskEndTime = modessl->data(index_EndTime).toString().toStdString();
         string taskLabel = modessl->data(index_Label).toString().toStdString();
         Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
-        allTask.deleteTask(task);
 
     }
     else if(nowIndex == -1){

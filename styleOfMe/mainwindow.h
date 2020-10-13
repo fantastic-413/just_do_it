@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include<QTableWidget>
 #include"AllTask.h"
+#include<QLabel>
+#include"global.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -18,8 +20,7 @@ public:
     void initial();
     int match(QString str);
     QList<QTableWidget*> list;
-    //总任务类
-    AllTask allTask;
+    QList<QLabel*> label_list;
 
     void addTask();
     void deleteTask();
