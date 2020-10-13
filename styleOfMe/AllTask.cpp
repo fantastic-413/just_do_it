@@ -42,8 +42,6 @@ list<Task> AllTask::searchTask(string task_name) {
 //构造函数和析构函数
 AllTask::AllTask() {}
 
-
-
 AllTask::~AllTask() {
 
 }
