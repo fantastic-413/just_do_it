@@ -21,9 +21,12 @@ public:
     int match(QString str);
     QList<QTableWidget*> list;
     QList<QLabel*> label_list;
-
+    QList<QString> week_list;
     void addTask();
     void deleteTask();
+    void showOnScreen(DayTask dayTask,int w);
+    void modifyTask();
+    void paintEvent(QPaintEvent* );
 private:
     int row[7] = {1,1,1,1,1,1,1};
     Ui::MainWindow *ui;

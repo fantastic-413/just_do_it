@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -104,7 +104,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="revBtn">
+      <widget class="QPushButton" name="modBtn">
        <property name="text">
         <string>修改</string>
        </property>
@@ -231,7 +231,6 @@
     <property name="title">
      <string>视图</string>
     </property>
-    <addaction name="actionz"/>
     <addaction name="actiony"/>
    </widget>
    <addaction name="menu"/>

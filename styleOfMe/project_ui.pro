@@ -14,9 +14,12 @@ SOURCES += \
     Task.cpp \
     global.cpp \
     inputdialog.cpp \
+    leveldialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    timeinput.cpp
+    modifydialog.cpp \
+    timeinput.cpp \
+    timemodifydialog.cpp
 
 HEADERS += \
     AllTask.h \
@@ -24,15 +27,24 @@ HEADERS += \
     Task.h \
     global.h \
     inputdialog.h \
+    leveldialog.h \
     mainwindow.h \
-    timeinput.h
+    modifydialog.h \
+    timeinput.h \
+    timemodifydialog.h
 
 FORMS += \
     inputdialog.ui \
+    leveldialog.ui \
     mainwindow.ui \
-    timeinput.ui
+    modifydialog.ui \
+    timeinput.ui \
+    timemodifydialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+	res.qrc
