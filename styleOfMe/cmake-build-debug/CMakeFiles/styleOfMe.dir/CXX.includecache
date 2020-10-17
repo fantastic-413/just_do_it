@@ -6,10 +6,16 @@
 
 #IncludeRegexTransform: 
 
+E:/just_do_it/styleOfMe/AllTask.cpp
+AllTask.h
+E:/just_do_it/styleOfMe/AllTask.h
+
 E:/just_do_it/styleOfMe/AllTask.h
 iostream
 -
 list
+-
+map
 -
 DayTask.h
 E:/just_do_it/styleOfMe/DayTask.h
@@ -42,6 +48,24 @@ E:/just_do_it/styleOfMe/global.h
 
 E:/just_do_it/styleOfMe/global.h
 iostream
+-
+AllTask.h
+E:/just_do_it/styleOfMe/AllTask.h
+
+E:/just_do_it/styleOfMe/main.cpp
+mainwindow.h
+E:/just_do_it/styleOfMe/mainwindow.h
+AllTask.h
+E:/just_do_it/styleOfMe/AllTask.h
+Task.h
+E:/just_do_it/styleOfMe/Task.h
+QApplication
+-
+
+E:/just_do_it/styleOfMe/mainwindow.h
+QMainWindow
+-
+QTableWidget
 -
 AllTask.h
 E:/just_do_it/styleOfMe/AllTask.h
