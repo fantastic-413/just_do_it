@@ -24,3 +24,6 @@ TimeModifyDialog::~TimeModifyDialog()
 QDateTime TimeModifyDialog::getTime(){
     return ui->dateTimeEdit->dateTime();
 }
+QString TimeModifyDialog::getDay(){
+    return ui->dateTimeEdit->dateTime().toString("MM-dd");
+}

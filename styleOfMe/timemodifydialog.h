@@ -16,6 +16,7 @@ public:
     explicit TimeModifyDialog(QDateTime taskTime,QString str,QWidget *parent = nullptr);
     ~TimeModifyDialog();
     QDateTime getTime();
+    QString getDay();
 
 private:
     Ui::TimeModifyDialog *ui;

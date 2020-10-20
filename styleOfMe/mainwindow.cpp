@@ -50,8 +50,11 @@ void MainWindow::initial(){
     QTableWidget* tableWidget_6 = new QTableWidget(ui->tab_6);
     QTableWidget* tableWidget_7 = new QTableWidget(ui->tab_7);
 
-  //  label_list << ui->label << ui->label_2 << ui->label_3 << ui->label_4 << ui->label_5 << ui->label_6 << ui->label_7;
+    label_list << ui->label << ui->label_2 << ui->label_3 << ui->label_4 << ui->label_5 << ui->label_6 << ui->label_7;
     list << tableWidget_1 << tableWidget_2 << tableWidget_3 << tableWidget_4 << tableWidget_5 << tableWidget_6 << tableWidget_7;
+    QDateTime timeOfToday = QDateTime::currentDateTime();
+    QString dayOfToday = timeOfToday.toString("dd");
+    int nowIndex = match(timeOfToday.toString("ddd"));
     for(int i = 0; i < 7;i++){
         list.at(i)->setFixedSize(830,700);
         //设置不可编辑
@@ -65,6 +68,13 @@ void MainWindow::initial(){
         list.at(i)->setItem(0,4,new QTableWidgetItem("任务标签"));
         list.at(i)->setItem(0,5,new QTableWidgetItem("日期"));
     }
+    //设置默认index
+    for(int i = 0;i < 7;i++){
+        int day = dayOfToday.toInt() - nowIndex + i;
+        label_list.at(i)->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+        label_list.at(i)->setText(QString::number(day));
+    }
+    ui->tabWidget->setCurrentIndex(nowIndex);
 }
 
 
@@ -76,7 +86,7 @@ int MainWindow::match(QString str){
     else if(str == "周四") return 3;
     else if(str == "周五") return 4;
     else if(str == "周六") return 5;
-    else if(str == "周日") return 7;
+    else if(str == "周日") return 6;
     else return -1;
 }
 
@@ -187,73 +197,106 @@ void MainWindow::modifyTask(){
     if(nowIndex != -1 && row[nowIndex] > 0){
         int currentRow = list.at(nowIndex)->currentRow();
         int currentCol = list.at(nowIndex)->currentColumn();
-        QAbstractItemModel *modessl = list.at(nowIndex)->model();
-        QModelIndex index_Name = modessl->index(currentRow,0);
-        QModelIndex index_Level = modessl->index(currentRow,1);
-        QModelIndex index_StartTime = modessl->index(currentRow,2);
-        QModelIndex index_EndTime = modessl->index(currentRow,3);
-        QModelIndex index_Label = modessl->index(currentRow,4);
-        QModelIndex index_today = modessl->index(currentRow,5);
-        string taskName = modessl->data(index_Name).toString().toStdString();
-        string taskLevel = modessl->data(index_Level).toString().toStdString();
-        string time_Of_Today = modessl->data(index_today).toString().toStdString();
-        TaskLevel level;
-        if(taskLevel == "一")  level = TaskLevel::level_1;
-        else if(taskLevel == "二")  level = TaskLevel::level_2;
-        else level = TaskLevel::level_3;
-        string taskStartTime = modessl->data(index_StartTime).toString().toStdString();
-        string taskEndTime = modessl->data(index_EndTime).toString().toStdString();
-        string taskLabel = modessl->data(index_Label).toString().toStdString();
-        DayTask dayTask = allTask.getDayTaskMap(time_Of_Today);
-        dayTask.deleteTask(Task(taskStartTime,taskEndTime,taskName,level,taskLabel));
-        switch(currentCol){
-        case 0:{
-            ModifyDialog* modDialog = new ModifyDialog("任务名称",this);
-            modDialog->setParent(this);
-            modDialog->setWindowTitle("modify");
-            modDialog->move(this->width() * 0.5 - modDialog->width() * 0.5 + 380,this->height() * 0.5 - modDialog->height() * 0.5 + 160);
-            modDialog->exec();
-            taskName = modDialog->getModifyText().toStdString();
-            break;
+        if(currentRow == 0 || currentRow >= row[nowIndex]){
+            QMessageBox* remind_Dialog = new QMessageBox(this);
+            remind_Dialog->setWindowTitle("Error");
+            remind_Dialog->setText("选择错误");
+            remind_Dialog->exec();
         }
-        case 1:{
-            LevelDialog* levelDialog = new LevelDialog(this);
-            levelDialog->move(this->width() * 0.5 - levelDialog->width() * 0.5 + 380,this->height() * 0.5 - levelDialog->height() * 0.5 + 160);
-            levelDialog->setWindowTitle("modify level");
-            levelDialog->exec();
-            level = levelDialog->getLevel();
-            break;
-        }
-        case 2:{
-            QString s = QString("%1 2020-%2 %3").arg(week_list.at(nowIndex)).arg(modessl->data(index_today).toString()).arg(QString::fromStdString(taskStartTime));
-            TimeModifyDialog* startTimeInput = new TimeModifyDialog(QDateTime::fromString(s,"ddd yyyy-MM-dd hh:mm"),"开始时间",this);
-            startTimeInput->move(this->width() * 0.5 - startTimeInput->width() * 0.5 + 380,this->height() * 0.5 + 160 - startTimeInput->height() * 0.5);
-            startTimeInput->exec();
-            taskStartTime = startTimeInput->getTime().toString("hh:mm").toStdString();
-            break;
-        }
-        case 3:
-        {
-            QString s = QString("%1 2020-%2 %3").arg(week_list.at(nowIndex)).arg(modessl->data(index_today).toString()).arg(QString::fromStdString(taskEndTime));
-            TimeModifyDialog* endTimeInput = new TimeModifyDialog(QDateTime::fromString(s,"ddd yyyy-MM-dd hh:mm"),"结束时间",this);
-            endTimeInput->move(this->width() * 0.5 - endTimeInput->width() * 0.5 + 380,this->height() * 0.5 + 160 - endTimeInput->height() * 0.5);
-            endTimeInput->exec();
-            taskEndTime = endTimeInput->getTime().toString("hh:mm").toStdString();
-            break;
-        }
-        case 4:{
-            ModifyDialog* modDialog = new ModifyDialog("任务标签");
-            modDialog->setParent(this);
-            modDialog->exec();
-            taskLabel = modDialog->getModifyText().toStdString();
-            break;
+        else{
+            QAbstractItemModel *modessl = list.at(nowIndex)->model();
+            QModelIndex index_Name = modessl->index(currentRow,0);
+            QModelIndex index_Level = modessl->index(currentRow,1);
+            QModelIndex index_StartTime = modessl->index(currentRow,2);
+            QModelIndex index_EndTime = modessl->index(currentRow,3);
+            QModelIndex index_Label = modessl->index(currentRow,4);
+            QModelIndex index_today = modessl->index(currentRow,5);
+            string taskName = modessl->data(index_Name).toString().toStdString();
+            string taskLevel = modessl->data(index_Level).toString().toStdString();
+            string time_Of_Today = modessl->data(index_today).toString().toStdString();
+            string modifyTime_Of_Today = time_Of_Today;
+            int modifyIndex = nowIndex;
+            TaskLevel level;
+            if(taskLevel == "一")  level = TaskLevel::level_1;
+            else if(taskLevel == "二")  level = TaskLevel::level_2;
+            else level = TaskLevel::level_3;
+            string taskStartTime = modessl->data(index_StartTime).toString().toStdString();
+            string taskEndTime = modessl->data(index_EndTime).toString().toStdString();
+            string taskLabel = modessl->data(index_Label).toString().toStdString();
+            DayTask dayTask = allTask.getDayTaskMap(time_Of_Today);
+            dayTask.deleteTask(Task(taskStartTime,taskEndTime,taskName,level,taskLabel));
+            switch(currentCol){
+            case 0:{
+                ModifyDialog* modDialog = new ModifyDialog("任务名称",this);
+                modDialog->setWindowTitle("modify");
+                modDialog->move(this->width() * 0.5 - modDialog->width() * 0.5 + 380,this->height() * 0.5 - modDialog->height() * 0.5 + 160);
+                modDialog->exec();
+                taskName = modDialog->getModifyText().toStdString();
+                break;
+            }
+            case 1:{
+                LevelDialog* levelDialog = new LevelDialog(this);
+                levelDialog->move(this->width() * 0.5 - levelDialog->width() * 0.5 + 380,this->height() * 0.5 - levelDialog->height() * 0.5 + 160);
+                levelDialog->setWindowTitle("modify level");
+                levelDialog->exec();
+                level = levelDialog->getLevel();
+                break;
+            }
+            case 2:{
+                QString s = QString("%1 2020-%2 %3").arg(week_list.at(nowIndex)).arg(modessl->data(index_today).toString()).arg(QString::fromStdString(taskStartTime));
+                TimeModifyDialog* startTimeInput = new TimeModifyDialog(QDateTime::fromString(s,"ddd yyyy-MM-dd hh:mm"),"开始时间",this);
+                startTimeInput->move(this->width() * 0.5 - startTimeInput->width() * 0.5 + 380,this->height() * 0.5 + 160 - startTimeInput->height() * 0.5);
+                startTimeInput->exec();
+                taskStartTime = startTimeInput->getTime().toString("hh:mm").toStdString();
+                modifyIndex = MainWindow::match(startTimeInput->getTime().toString("ddd"));
+                modifyTime_Of_Today = startTimeInput->getDay().toStdString();
+                break;
+            }
+            case 3:
+            {
+                QString s = QString("%1 2020-%2 %3").arg(week_list.at(nowIndex)).arg(modessl->data(index_today).toString()).arg(QString::fromStdString(taskEndTime));
+                TimeModifyDialog* endTimeInput = new TimeModifyDialog(QDateTime::fromString(s,"ddd yyyy-MM-dd hh:mm"),"结束时间",this);
+                endTimeInput->move(this->width() * 0.5 - endTimeInput->width() * 0.5 + 380,this->height() * 0.5 + 160 - endTimeInput->height() * 0.5);
+                endTimeInput->exec();
+                taskEndTime = endTimeInput->getTime().toString("hh:mm").toStdString();
+                modifyIndex = MainWindow::match(endTimeInput->getTime().toString("ddd"));
+                modifyTime_Of_Today = endTimeInput->getDay().toStdString();
+                break;
+            }
+            case 4:{
+                ModifyDialog* modDialog = new ModifyDialog("任务标签",this);
+                modDialog->setWindowTitle("modify");
+                modDialog->move(this->width() * 0.5 - modDialog->width() * 0.5 + 380,this->height() * 0.5 - modDialog->height() * 0.5 + 160);
+                modDialog->exec();
+                taskLabel = modDialog->getModifyText().toStdString();
+                break;
+            }
+
+            }
+            list.at(nowIndex)->removeRow(currentRow);
+            row[nowIndex]--;
+            Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
+
+            if(modifyTime_Of_Today == time_Of_Today){
+                dayTask.addTask(task);
+                showOnScreen(dayTask,nowIndex);
+            }
+            else{
+                DayTask modifyDayTask;
+                if(!allTask.ifExistDayTaskList(modifyTime_Of_Today)){
+                    modifyDayTask.setTimeOfToday(modifyTime_Of_Today);
+                    allTask.setDayTaskMap(modifyTime_Of_Today,modifyDayTask);
+                }
+                else{
+                    modifyDayTask = allTask.getDayTaskMap(modifyTime_Of_Today);
+                }
+                modifyDayTask.addTask(task);
+                showOnScreen(dayTask,nowIndex);
+                showOnScreen(modifyDayTask,modifyIndex);
+                row[modifyIndex]++;
+            }
         }
 
-        }
-        Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
-        dayTask.addTask(task);
-        showOnScreen(dayTask,nowIndex);
-        list.at(nowIndex)->removeRow(row[nowIndex]--);
     }
     else if(nowIndex == -1){
         QMessageBox* remind_Dialog = new QMessageBox(this);
