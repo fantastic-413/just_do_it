@@ -8,6 +8,7 @@
 #include <list>
 #include <map>
 #include "DayTask.h"
+#include <fstream>
 
 using namespace std;
 
@@ -32,6 +33,10 @@ public:
     DayTask &getDayTaskMap(string time_of_Today);
     //添加每一天及对应日任务map集合 setDayTaskMap(string time_of_Today,list<Task> task_listOfDay)
     void setDayTaskMap(string time_of_Today,DayTask dayTask);
+    //从文件中读取allTask
+    AllTask readFromFile();
+    //把allTask保存到文件"allTask.txt"中
+    void saveAllTaskToFile();
     //查询任务  searchTask()
     list<Task> searchTask(string task_name);
     //构造函数和析构函数
