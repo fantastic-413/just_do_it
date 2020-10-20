@@ -51,7 +51,7 @@ public:
 
     void setFinishedTaskList(const list<Task> &finishedTaskList);
     //打印函数
-
+    friend ostream &operator<<(ostream &os, const AllTask &allTask);
     //重载==和！=
     bool operator==(const AllTask &rhs) const;
 

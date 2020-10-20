@@ -47,7 +47,7 @@ public:
 
     void setTaskList(const list<Task> &taskList);
     //打印函数
-    friend ostream &operator<<(ostream &os, const DayTask &task);
+    friend ostream &operator<<(ostream &os, const DayTask &dayTask);
     //重载==和！=
     bool operator==(const DayTask &rhs) const;
 
