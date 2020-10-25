@@ -24,6 +24,7 @@ CMakeFiles/styleOfMe.dir/global.cpp.obj: ../global.h
 CMakeFiles/styleOfMe.dir/main.cpp.obj: ../AllTask.h
 CMakeFiles/styleOfMe.dir/main.cpp.obj: ../DayTask.h
 CMakeFiles/styleOfMe.dir/main.cpp.obj: ../Task.h
+CMakeFiles/styleOfMe.dir/main.cpp.obj: ../global.h
 CMakeFiles/styleOfMe.dir/main.cpp.obj: ../main.cpp
 CMakeFiles/styleOfMe.dir/main.cpp.obj: ../mainwindow.h
 

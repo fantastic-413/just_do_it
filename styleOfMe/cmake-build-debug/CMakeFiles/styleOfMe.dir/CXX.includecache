@@ -19,6 +19,8 @@ map
 -
 DayTask.h
 E:/just_do_it/styleOfMe/DayTask.h
+fstream
+-
 
 E:/just_do_it/styleOfMe/DayTask.cpp
 DayTask.h
@@ -33,6 +35,10 @@ string
 -
 list
 -
+Task.h
+E:/just_do_it/styleOfMe/Task.h
+
+E:/just_do_it/styleOfMe/Task.cpp
 Task.h
 E:/just_do_it/styleOfMe/Task.h
 
@@ -69,4 +75,8 @@ QTableWidget
 -
 AllTask.h
 E:/just_do_it/styleOfMe/AllTask.h
+QLabel
+-
+global.h
+E:/just_do_it/styleOfMe/global.h
 
