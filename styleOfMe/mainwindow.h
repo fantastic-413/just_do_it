@@ -34,8 +34,8 @@ public:
     void paintEvent(QPaintEvent* );
     void cls();
     void finished(int row,int col);
+    int row[5][7];
 private:
-    int row[5][7];//第一维下标从0开始
     QMap<int,QList<QString>> weekContainer; //下标从1开始
     Ui::MainWindow *ui;
 };

@@ -44,7 +44,7 @@ void MainWindow::initial(){
     week_list<<"周一"<<"周二"<<"周三"<<"周四"<<"周五"<<"周六"<<"周日";
     for(int i = 0; i < 5;i++)
         for(int j = 0;j < 7; j++)
-            row[i][j] = 1;
+            row[i][j] = 0;
     QTableWidget* tableWidget_1 = new QTableWidget(ui->tab);
     QTableWidget* tableWidget_2 = new QTableWidget(ui->tab_2);
     QTableWidget* tableWidget_3 = new QTableWidget(ui->tab_3);
@@ -202,8 +202,8 @@ void MainWindow::deleteTask(){
         Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
         DayTask dayTask = allTask.getDayTaskMap(time_Of_Today);
         dayTask.deleteTask(task);
-        showOnScreen(dayTask,nowIndex);
         list.at(nowIndex)->removeRow(row[currentWeekIndex-1][nowIndex]--);
+        showOnScreen(dayTask,nowIndex);
     }
     else if(nowIndex == -1){
         QMessageBox* remind_Dialog = new QMessageBox(this);
@@ -298,16 +298,18 @@ void MainWindow::modifyTask(){
                 ModifyDialog* modDialog = new ModifyDialog("任务名称",this);
                 modDialog->setWindowTitle("modify");
                 modDialog->move(this->width() * 0.5 - modDialog->width() * 0.5 + 380,this->height() * 0.5 - modDialog->height() * 0.5 + 160);
-                modDialog->exec();
-                taskName = modDialog->getModifyText().toStdString();
+                if(modDialog->exec() == 1){
+                    taskName = modDialog->getModifyText().toStdString();
+                }
                 break;
             }
             case 1:{
                 LevelDialog* levelDialog = new LevelDialog(this);
                 levelDialog->move(this->width() * 0.5 - levelDialog->width() * 0.5 + 380,this->height() * 0.5 - levelDialog->height() * 0.5 + 160);
                 levelDialog->setWindowTitle("modify level");
-                levelDialog->exec();
-                level = levelDialog->getLevel();
+                if(levelDialog->exec() == 1){
+                    level = levelDialog->getLevel();
+                }
                 break;
             }
             case 2:{
@@ -348,8 +350,12 @@ void MainWindow::modifyTask(){
                 ModifyDialog* modDialog = new ModifyDialog("任务标签",this);
                 modDialog->setWindowTitle("modify");
                 modDialog->move(this->width() * 0.5 - modDialog->width() * 0.5 + 380,this->height() * 0.5 - modDialog->height() * 0.5 + 160);
-                modDialog->exec();
-                taskLabel = modDialog->getModifyText().toStdString();
+                if(modDialog->exec() == 1){
+                    taskLabel = modDialog->getModifyText().toStdString();
+                }
+                break;
+            }
+            case 5:{
                 break;
             }
             }
@@ -387,6 +393,7 @@ void MainWindow::modifyTask(){
                     showOnScreen(dayTask,nowIndex);
                     showOnScreen(modifyDayTask,modifyIndex);
                     row[currentWeekIndex - 1][modifyIndex]++;
+                    ui->tabWidget->setCurrentIndex(modifyIndex);
                 }
             }
         }
