@@ -38,21 +38,23 @@ void AllTask::setDayTaskMap(string time_of_Today, DayTask dayTask) {
 
 //从文件"allTask.txt"中读取allTask
 AllTask AllTask::readFromFile() {
-    ifstream ifs("allTask.txt", ios::in | ios::binary);
+    ifstream ifs("D:\\just_do_it\\styleOfMe\\allTask.txt", ios::in | ios::binary);
     if (!ifs.is_open()) {
         ifs.close();
         return AllTask();
     } else {
-        ifs.read((char *)this, sizeof(AllTask));
+        AllTask allTask_read;
+        ifs.read((char *)&allTask_read, sizeof(AllTask));
         ifs.close();
-        return *this;
+        return allTask_read;
     }
 }
 
 //把allTask保存到文件"allTask.txt"中
 void AllTask::saveAllTaskToFile() {
-    ofstream ofs("allTask.txt", ios::out | ios::binary | ios::trunc);
-    ofs.write((char*)this,sizeof(AllTask));
+    ofstream ofs("D:\\just_do_it\\styleOfMe\\allTask.txt", ios::out | ios::binary);
+    AllTask allTask_write = (*this);
+    ofs.write((char*)&allTask_write,sizeof(AllTask));
     ofs.close();
 }
 
