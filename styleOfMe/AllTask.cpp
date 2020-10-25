@@ -53,7 +53,7 @@ AllTask AllTask::readFromFile() {
 
 //把allTask保存到文件"allTask.txt"中
 void AllTask::saveAllTaskToFile() {
-    ofstream ofs("D:\\just_do_it\\styleOfMe\\allTask.txt", ios::out | ios::binary);
+    ofstream ofs("D:\\just_do_it\\styleOfMe\\allTask.txt", ios::out | ios::binary | ios::trunc);
     AllTask allTask_write = (*this);
     ofs.write((char*)&allTask_write,sizeof(AllTask));
     ofs.close();
