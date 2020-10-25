@@ -41,6 +41,7 @@ MainWindow::~MainWindow()
 }
 //初始化
 void MainWindow::initial(){
+    cout << allTask.ifExistDayTaskList("10-25") << endl;
     week_list<<"周一"<<"周二"<<"周三"<<"周四"<<"周五"<<"周六"<<"周日";
     for(int i = 0; i < 5;i++)
         for(int j = 0;j < 7; j++)
@@ -173,6 +174,7 @@ void MainWindow::addTask(){
             currentWeekIndex = weekIndex;
             showOnScreen(dayTask,w);
         }
+        ui->tabWidget->setCurrentIndex(w);
         allTask.saveAllTaskToFile();
     }
 }
@@ -219,7 +221,8 @@ void MainWindow::deleteTask(){
     }
 }
 
-void MainWindow::finished(int row,int col){
+void MainWindow::finished(int row1,int col){
+    if(row1 == 0 || col == 5 || row1 > row[currentWeekIndex - 1][ui->tabWidget->currentIndex()]) return;
     QMessageBox* remind_Dialog = new QMessageBox(this);
     remind_Dialog->setWindowTitle("确定Dialog");
     remind_Dialog->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
