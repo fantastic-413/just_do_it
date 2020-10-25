@@ -87,6 +87,12 @@ void MainWindow::initial(){
     }
     //设置默认index
     setDate(day,nowIndex);
+    int weekk = getWeek(timeOfToday);
+    for(int i = 0;i < 7; i++){
+        if(allTask.ifExistDayTaskList(weekContainer[weekk].at(i).toStdString())){
+            showOnScreen(allTask.getDayTaskMap(weekContainer[weekk].at(i).toStdString()),i);
+        }
+    }
     ui->tabWidget->setCurrentIndex(nowIndex);
 }
 
@@ -113,7 +119,6 @@ void MainWindow::addTask(){
     QString time_Of_Task = dialog->taskStartTime.toString("MM-dd");
     QDateTime startDate = dialog->taskStartTime;
     int weekIndex = getWeek(startDate);
-    qDebug() << weekIndex << endl;
     DayTask dayTask;
     if(allTask.ifExistDayTaskList(time_Of_Task.toStdString())){
         dayTask = allTask.getDayTaskMap(time_Of_Task.toStdString());
@@ -168,6 +173,7 @@ void MainWindow::addTask(){
             currentWeekIndex = weekIndex;
             showOnScreen(dayTask,w);
         }
+        allTask.saveAllTaskToFile();
     }
 }
 
@@ -213,6 +219,20 @@ void MainWindow::deleteTask(){
     }
 }
 
+void MainWindow::finished(int row,int col){
+    QMessageBox* remind_Dialog = new QMessageBox(this);
+    remind_Dialog->setWindowTitle("确定Dialog");
+    remind_Dialog->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+    remind_Dialog->button(QMessageBox::Ok)->setText("确定");
+    remind_Dialog->button(QMessageBox::Cancel)->setText("取消");
+    remind_Dialog->setText("您确定完成该任务？");
+    if(remind_Dialog->exec() == QMessageBox::Ok){
+        qDebug() << "确定" << endl;
+    }
+    else {
+        qDebug() << "不确定" << endl;
+    }
+}
 void MainWindow::showOnScreen(DayTask dayTask,int w){
     int current_Row = 1;
     for(auto it:dayTask.getTaskList()){
@@ -227,6 +247,7 @@ void MainWindow::showOnScreen(DayTask dayTask,int w){
         list.at(w)->setItem(current_Row,4,new QTableWidgetItem(QString::fromStdString((it.getTaskLabel()))));
         list.at(w)->setItem(current_Row,5,new QTableWidgetItem(QString::fromStdString(dayTask.getTimeOfToday())));
         current_Row++;
+        connect(list.at(w),&QTableWidget::cellDoubleClicked,this,&MainWindow::finished);
     }
     row[currentWeekIndex - 1][w] = current_Row - 1;
 }
