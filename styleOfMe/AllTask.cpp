@@ -43,8 +43,7 @@ AllTask AllTask::readFromFile() {
         ifs.close();
         return AllTask();
     } else {
-        *this = AllTask();
-        ifs.read((char *)this, sizeof(AllTask));
+        ifs.read((char *) this, sizeof(AllTask));
         ifs.close();
         return *this;
     }
