@@ -46,7 +46,8 @@ AllTask AllTask::readFromFile() {
         AllTask allTask_read;
         ifs.read((char *)&allTask_read, sizeof(AllTask));
         ifs.close();
-        return allTask_read;
+        (*this) = allTask_read;
+        return (*this);
     }
 }
 
