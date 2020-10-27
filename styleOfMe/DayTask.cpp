@@ -69,11 +69,11 @@ void DayTask::setTaskList(const list<Task> &taskList) {
 ostream &operator<<(ostream &os, const DayTask &dayTask) {
     os << "time_of_Today: " << dayTask.time_of_Today << endl << " task_label_list: " << endl;
     for (auto task_label:dayTask.task_label_list) {
-        cout << task_label << endl;
+        os << task_label << endl;
     }
-    cout << " task_list: " << endl;
+    os << " task_list: " << endl;
     for (auto task:dayTask.task_list) {
-        cout << task << endl;
+        os << task << endl;
     }
     return os;
 }
