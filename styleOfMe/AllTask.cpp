@@ -72,19 +72,14 @@ AllTask AllTask::readFromFile() {
             ifs.read((char*)&dayTask,sizeof(DayTask));
             allTask_help.setDayTaskMap(time_of_Today,dayTask);
         }
+        ifs.close();
         return allTask_help;
     }
 }
 
 //把allTask保存到文件"allTask.txt"中
 void AllTask::saveAllTaskToFile() {
-<<<<<<< HEAD
     ofstream ofs("D:\\allTask.txt", ios::out | ios::binary | ios::trunc);
-    AllTask allTask_write = (*this);
-    ofs.write((char*)&allTask_write,sizeof(AllTask));
-    ofs.close();
-=======
-    ofstream ofs("D:\\just_do_it\\styleOfMe\\allTask.txt", ios::out | ios::binary | ios::trunc);
 //    AllTask allTask_write = (*this);
 //    ofs.write((char*)&allTask_write,sizeof(AllTask));
 //    ofs.close();
@@ -104,7 +99,7 @@ void AllTask::saveAllTaskToFile() {
         ofs.write((char*)&dayTask_map.first,sizeof(string));
         ofs.write((char*)&dayTask_map.second,sizeof(DayTask));
     }
->>>>>>> 0bd7cc62b40073012b46e6b4648a5b48c21d3c5b
+    ofs.close();
 }
 
 //查询任务  searchTask()

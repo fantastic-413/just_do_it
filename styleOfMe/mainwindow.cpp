@@ -41,7 +41,6 @@ MainWindow::~MainWindow()
 }
 //初始化
 void MainWindow::initial(){
-    cout << allTask.ifExistDayTaskList("10-25") << endl;
     week_list<<"周一"<<"周二"<<"周三"<<"周四"<<"周五"<<"周六"<<"周日";
     for(int i = 0; i < 5;i++)
         for(int j = 0;j < 7; j++)
@@ -177,7 +176,12 @@ void MainWindow::addTask(){
             showOnScreen(dayTask,w);
         }
         ui->tabWidget->setCurrentIndex(w);
-        allTask.saveAllTaskToFile();
+//        allTask.saveAllTaskToFile();
+//        cout<<"000"<<endl;
+//        allTask = AllTask().readFromFile();
+//        cout<<"666"<<endl;
+//        cout<<allTask;
+//        cout<<"777"<<endl;
     }
 }
 
@@ -231,11 +235,35 @@ void MainWindow::finished(int row1,int col){
     remind_Dialog->button(QMessageBox::Ok)->setText("确定");
     remind_Dialog->button(QMessageBox::Cancel)->setText("取消");
     remind_Dialog->setText("您确定完成该任务？");
-    if(remind_Dialog->exec() == QMessageBox::Ok){
-        qDebug() << "确定" << endl;
+    int nowIndex = ui->tabWidget->currentIndex();
+    int x = remind_Dialog->exec();
+    if(x == QMessageBox::Ok){
+        QAbstractItemModel *modessl = list.at(nowIndex)->model();
+        QModelIndex index_Name = modessl->index(row1,0);
+        QModelIndex index_Level = modessl->index(row1,1);
+        QModelIndex index_StartTime = modessl->index(row1,2);
+        QModelIndex index_EndTime = modessl->index(row1,3);
+        QModelIndex index_Label = modessl->index(row1,4);
+        QModelIndex index_today = modessl->index(row1,5);
+        string taskName = modessl->data(index_Name).toString().toStdString();
+        string taskLevel = modessl->data(index_Level).toString().toStdString();
+        string time_Of_Today = modessl->data(index_today).toString().toStdString();
+        TaskLevel level;
+        if(taskLevel == "一")  level = TaskLevel::level_1;
+        else if(taskLevel == "二")  level = TaskLevel::level_2;
+        else level = TaskLevel::level_3;
+        string taskStartTime = modessl->data(index_StartTime).toString().toStdString();
+        string taskEndTime = modessl->data(index_EndTime).toString().toStdString();
+        string taskLabel = modessl->data(index_Label).toString().toStdString();
+        Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
+        DayTask dayTask = allTask.getDayTaskMap(time_Of_Today);
+        dayTask.finishTask(task);
+        list.at(nowIndex)->removeRow(row1);
+        row[currentWeekIndex - 1][nowIndex]--;
+        showOnScreen(dayTask,nowIndex);
     }
     else {
-        qDebug() << "不确定" << endl;
+        return;
     }
 }
 void MainWindow::showOnScreen(DayTask dayTask,int w){
@@ -252,6 +280,7 @@ void MainWindow::showOnScreen(DayTask dayTask,int w){
         list.at(w)->setItem(current_Row,4,new QTableWidgetItem(QString::fromStdString((it.getTaskLabel()))));
         list.at(w)->setItem(current_Row,5,new QTableWidgetItem(QString::fromStdString(dayTask.getTimeOfToday())));
         current_Row++;
+        disconnect(list.at(w),&QTableWidget::cellDoubleClicked,this,&MainWindow::finished);
         connect(list.at(w),&QTableWidget::cellDoubleClicked,this,&MainWindow::finished);
     }
     row[currentWeekIndex - 1][w] = current_Row - 1;
