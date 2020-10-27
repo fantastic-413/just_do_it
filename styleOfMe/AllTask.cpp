@@ -43,20 +43,61 @@ AllTask AllTask::readFromFile() {
         ifs.close();
         return AllTask();
     } else {
-        AllTask allTask_read;
-        ifs.read((char *)&allTask_read, sizeof(AllTask));
-        ifs.close();
-        (*this) = allTask_read;
-        return (*this);
+//        AllTask allTask_read;
+//        ifs.read((char *)&allTask_read, sizeof(AllTask));
+//        ifs.close();
+//        (*this) = allTask_read;
+//        return (*this);
+        AllTask allTask_help;
+        Task task;
+        string time_of_Today;
+        DayTask dayTask;
+        int allTask_size;
+        int finishedTask_size;
+        int dayTask_map_size;
+        ifs.read((char*)&allTask_size,sizeof(int));
+        ifs.read((char*)&finishedTask_size,sizeof(int));
+        ifs.read((char*)&dayTask_map_size,sizeof(int));
+        for (int i = 1; i <= allTask_size; ++i){
+            ifs.read((char*)&task,sizeof(Task));
+            allTask_help.addAllTask(task);
+        }
+
+        for (int i = 1; i <= finishedTask_size; ++i){
+            ifs.read((char*)&task,sizeof(Task));
+            allTask_help.addFinishedTask(task);
+        }
+        for (int i = 1; i <= dayTask_map_size; ++i){
+            ifs.read((char*)&time_of_Today,sizeof(string));
+            ifs.read((char*)&dayTask,sizeof(DayTask));
+            allTask_help.setDayTaskMap(time_of_Today,dayTask);
+        }
+        return allTask_help;
     }
 }
 
 //把allTask保存到文件"allTask.txt"中
 void AllTask::saveAllTaskToFile() {
     ofstream ofs("D:\\just_do_it\\styleOfMe\\allTask.txt", ios::out | ios::binary | ios::trunc);
-    AllTask allTask_write = (*this);
-    ofs.write((char*)&allTask_write,sizeof(AllTask));
-    ofs.close();
+//    AllTask allTask_write = (*this);
+//    ofs.write((char*)&allTask_write,sizeof(AllTask));
+//    ofs.close();
+    int allTask_size = allTask_list.size();
+    int finishedTask_size = finishedTask_list.size();
+    int dayTask_map_size = DayTask_map.size();
+    ofs.write((char*)&allTask_size,sizeof(int));
+    ofs.write((char*)&finishedTask_size,sizeof(int));
+    ofs.write((char*)&dayTask_map_size,sizeof(int));
+    for (auto task:(*this).allTask_list) {
+        ofs.write((char*)&task,sizeof(Task));
+    }
+    for (auto task:(*this).finishedTask_list) {
+        ofs.write((char*)&task,sizeof(Task));
+    }
+    for (auto dayTask_map:(*this).DayTask_map) {
+        ofs.write((char*)&dayTask_map.first,sizeof(string));
+        ofs.write((char*)&dayTask_map.second,sizeof(DayTask));
+    }
 }
 
 //查询任务  searchTask()
@@ -102,15 +143,15 @@ void AllTask::setFinishedTaskList(const list<Task> &finishedTaskList) {
 ostream &operator<<(ostream &os, const AllTask &allTask) {
     os << "allTask_list: " << endl;
     for (auto task:allTask.allTask_list) {
-        cout << task << endl;
+        os << task << endl;
     }
-    cout << " finishedTask_list: " << endl;
+    os << " finishedTask_list: " << endl;
     for (auto task:allTask.finishedTask_list) {
-        cout << task << endl;
+        os << task << endl;
     }
-    cout << " DayTask_map: " << endl;
+    os << " DayTask_map: " << endl;
     for (auto dayTask_map:allTask.DayTask_map) {
-        cout << dayTask_map.second << endl;
+        os << dayTask_map.second << endl;
     }
     return os;
 }
