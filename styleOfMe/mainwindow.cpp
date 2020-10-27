@@ -73,6 +73,7 @@ void MainWindow::initial(){
         }
         weekContainer.insert(i + 1,l);
     }
+
     for(int i = 0; i < 7;i++){
         list.at(i)->setFixedSize(830,700);
         //设置不可编辑
@@ -87,11 +88,12 @@ void MainWindow::initial(){
         list.at(i)->setItem(0,5,new QTableWidgetItem("日期"));
     }
     //设置默认index
-    setDate(day,nowIndex);
-    int weekk = getWeek(timeOfToday);
+    currentWeekIndex = getWeek(timeOfToday);
     for(int i = 0;i < 7; i++){
-        if(allTask.ifExistDayTaskList(weekContainer[weekk].at(i).toStdString())){
-            showOnScreen(allTask.getDayTaskMap(weekContainer[weekk].at(i).toStdString()),i);
+        label_list.at(i)->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+        label_list.at(i)->setText(weekContainer[currentWeekIndex].at(i).split("-")[1]);
+        if(allTask.ifExistDayTaskList(weekContainer[currentWeekIndex].at(i).toStdString())){
+            showOnScreen(allTask.getDayTaskMap(weekContainer[currentWeekIndex].at(i).toStdString()),i);
         }
     }
     ui->tabWidget->setCurrentIndex(nowIndex);
@@ -160,8 +162,8 @@ void MainWindow::addTask(){
         dayTask.addTask(task);
         //判断第几周
         if(currentWeekIndex != weekIndex){
+            if(currentWeekIndex != 0) cls();
             currentWeekIndex = weekIndex;
-            cls();
             for(int i = 1;i <=7; i++){
                 //设置label上的日
                 label_list.at(i - 1)->setText(weekContainer[currentWeekIndex].at(i - 1).split("-")[1]);
@@ -365,7 +367,6 @@ void MainWindow::modifyTask(){
             list.at(nowIndex)->removeRow(currentRow);
             row[currentWeekIndex - 1][nowIndex]--;
             Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
-
             if(modifyTime_Of_Today == time_Of_Today){
                 dayTask.addTask(task);
                 showOnScreen(dayTask,nowIndex);
@@ -382,8 +383,8 @@ void MainWindow::modifyTask(){
                 modifyDayTask.addTask(task);
                 int weekIndex = getWeek(modifyTime);
                 if(weekIndex != currentWeekIndex){
-                    currentWeekIndex = weekIndex;
                     cls();
+                    currentWeekIndex = weekIndex;
                     QList<QString> l = weekContainer[currentWeekIndex];
                     for(int i = 0; i < 7; i++){
                         label_list.at(i)->setText(l.at(i).split("-")[1]);
@@ -396,8 +397,8 @@ void MainWindow::modifyTask(){
                     showOnScreen(dayTask,nowIndex);
                     showOnScreen(modifyDayTask,modifyIndex);
                     row[currentWeekIndex - 1][modifyIndex]++;
-                    ui->tabWidget->setCurrentIndex(modifyIndex);
                 }
+                ui->tabWidget->setCurrentIndex(modifyIndex);
             }
         }
 
