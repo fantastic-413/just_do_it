@@ -49,27 +49,44 @@ AllTask AllTask::readFromFile() {
 //        (*this) = allTask_read;
 //        return (*this);
         AllTask allTask_help;
+        DayTask dayTask;
         Task task;
         string time_of_Today;
-        DayTask dayTask;
+        //读取总任务类
+        //1.读取总任务类里各成员变量个数
+        //a.读取总任务个数
         int allTask_size;
+        //b.读取已完成任务个数
         int finishedTask_size;
+        //c.读取日任务个数
         int dayTask_map_size;
         ifs.read((char*)&allTask_size,sizeof(int));
         ifs.read((char*)&finishedTask_size,sizeof(int));
         ifs.read((char*)&dayTask_map_size,sizeof(int));
+        //2.逐个读取总任务并加入集合
         for (int i = 1; i <= allTask_size; ++i){
             ifs.read((char*)&task,sizeof(Task));
             allTask_help.addAllTask(task);
         }
-
+        //3.逐个读取已完成任务并加入集合
         for (int i = 1; i <= finishedTask_size; ++i){
             ifs.read((char*)&task,sizeof(Task));
             allTask_help.addFinishedTask(task);
         }
+        //4.逐个读取日任务类并加入map集合
         for (int i = 1; i <= dayTask_map_size; ++i){
             ifs.read((char*)&time_of_Today,sizeof(string));
-            ifs.read((char*)&dayTask,sizeof(DayTask));
+            //读取日任务类
+            //1.给日任务类赋时间
+            dayTask.setTimeOfToday(time_of_Today);
+            //2.读取日任务类里任务个数
+            int task_size;
+            ifs.read((char*)&task_size,sizeof(int));
+            //3.逐个读取任务赋给日任务类
+            for (int i = 1; i <= task_size; ++i){
+                ifs.read((char*)&task,sizeof(task));
+                dayTask.addTask(task);
+            }
             allTask_help.setDayTaskMap(time_of_Today,dayTask);
         }
         ifs.close();
@@ -83,21 +100,36 @@ void AllTask::saveAllTaskToFile() {
 //    AllTask allTask_write = (*this);
 //    ofs.write((char*)&allTask_write,sizeof(AllTask));
 //    ofs.close();
+    //写入总任务类
+    //1.写入总任务类里各成员变量个数，方便读取
+    //a.写入总任务个数
     int allTask_size = allTask_list.size();
+    //b.写入已完成任务个数
     int finishedTask_size = finishedTask_list.size();
+    //c.写入日任务类个数
     int dayTask_map_size = DayTask_map.size();
     ofs.write((char*)&allTask_size,sizeof(int));
     ofs.write((char*)&finishedTask_size,sizeof(int));
     ofs.write((char*)&dayTask_map_size,sizeof(int));
+    //2.逐个写入总任务集合中任务
     for (auto task:(*this).allTask_list) {
         ofs.write((char*)&task,sizeof(Task));
     }
+    //3.逐个写入已完成任务集合中任务
     for (auto task:(*this).finishedTask_list) {
         ofs.write((char*)&task,sizeof(Task));
     }
+    //4.逐个写入日任务类map集合中日期与日任务类
     for (auto dayTask_map:(*this).DayTask_map) {
         ofs.write((char*)&dayTask_map.first,sizeof(string));
-        ofs.write((char*)&dayTask_map.second,sizeof(DayTask));
+        //写入日任务类
+        //1.写入日任务类里任务个数，方便读取任务
+        int task_size = dayTask_map.second.getTaskList().size();
+        ofs.write((char*)&task_size,sizeof(int));
+        //2.逐个写入日任务类里任务
+        for (auto task:dayTask_map.second.getTaskList()) {
+            ofs.write((char*)&task,sizeof(task));
+        }
     }
     ofs.close();
 }

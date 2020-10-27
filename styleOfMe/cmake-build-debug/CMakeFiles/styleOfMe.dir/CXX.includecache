@@ -38,10 +38,6 @@ list
 Task.h
 E:/just_do_it/styleOfMe/Task.h
 
-E:/just_do_it/styleOfMe/Task.cpp
-Task.h
-E:/just_do_it/styleOfMe/Task.h
-
 E:/just_do_it/styleOfMe/Task.h
 iostream
 -
@@ -76,6 +72,8 @@ QTableWidget
 AllTask.h
 E:/just_do_it/styleOfMe/AllTask.h
 QLabel
+-
+QMap
 -
 global.h
 E:/just_do_it/styleOfMe/global.h
