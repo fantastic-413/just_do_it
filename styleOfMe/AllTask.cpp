@@ -93,7 +93,6 @@ AllTask AllTask::readFromFile() {
         return allTask_help;
     }
 }
-
 //把allTask保存到文件"allTask.txt"中
 void AllTask::saveAllTaskToFile() {
     ofstream ofs("D:\\allTask.txt", ios::out | ios::binary | ios::trunc);
@@ -114,6 +113,7 @@ void AllTask::saveAllTaskToFile() {
     //2.逐个写入总任务集合中任务
     for (auto task:(*this).allTask_list) {
         ofs.write((char*)&task,sizeof(Task));
+        cout<<task;
     }
     //3.逐个写入已完成任务集合中任务
     for (auto task:(*this).finishedTask_list) {

@@ -19,6 +19,7 @@
 #include"leveldialog.h"
 #include<QPainter>
 #include<QPixmap>
+#include"showdialog.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -33,28 +34,36 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->delBtn,&QPushButton::clicked,this,&MainWindow::deleteTask);
     //修改任务
     connect(ui->modBtn,&QPushButton::clicked,this,&MainWindow::modifyTask);
+    //up
+    connect(ui->upBtn,&QPushButton::clicked,this,&MainWindow::up);
+    //down
+    connect(ui->downBtn,&QPushButton::clicked,this,&MainWindow::down);
+    //总任务栏
+    connect(ui->actionAllTask,&QAction::triggered,this,&MainWindow::showAllTask);
+    //已完成任务栏
+    connect(ui->actionFinishedTask,&QAction::triggered,this,&MainWindow::showFinishedTask);
 }
 //析构函数
 MainWindow::~MainWindow()
 {
+    allTask.saveAllTaskToFile();
     delete ui;
 }
 //初始化
 void MainWindow::initial(){
+    cout<<allTask<<endl;
     week_list<<"周一"<<"周二"<<"周三"<<"周四"<<"周五"<<"周六"<<"周日";
+    tab_list<< ui->tab << ui->tab_2 << ui->tab_3 << ui->tab_4 << ui->tab_5 << ui->tab_6 << ui->tab_7;
+    label_list << ui->label << ui->label_2 << ui->label_3 << ui->label_4 << ui->label_5 << ui->label_6 << ui->label_7;
+    item_list << "任务名称" << "任务等级" << "任务开始时间" << "任务结束时间" << "任务标签" << "日期";
     for(int i = 0; i < 5;i++)
         for(int j = 0;j < 7; j++)
             row[i][j] = 0;
-    QTableWidget* tableWidget_1 = new QTableWidget(ui->tab);
-    QTableWidget* tableWidget_2 = new QTableWidget(ui->tab_2);
-    QTableWidget* tableWidget_3 = new QTableWidget(ui->tab_3);
-    QTableWidget* tableWidget_4 = new QTableWidget(ui->tab_4);
-    QTableWidget* tableWidget_5 = new QTableWidget(ui->tab_5);
-    QTableWidget* tableWidget_6 = new QTableWidget(ui->tab_6);
-    QTableWidget* tableWidget_7 = new QTableWidget(ui->tab_7);
+    for(int i = 0;i < 7;i++){
+        QTableWidget* tableWidget = new QTableWidget (tab_list.at(i));
+        list << tableWidget;
+    }
 
-    label_list << ui->label << ui->label_2 << ui->label_3 << ui->label_4 << ui->label_5 << ui->label_6 << ui->label_7;
-    list << tableWidget_1 << tableWidget_2 << tableWidget_3 << tableWidget_4 << tableWidget_5 << tableWidget_6 << tableWidget_7;
     QDateTime timeOfToday = QDateTime::currentDateTime();
     QString dayOfToday = timeOfToday.toString("dd");
     int nowIndex = match(timeOfToday.toString("ddd"));
@@ -64,7 +73,6 @@ void MainWindow::initial(){
     if(firstDayOfWeek != 0){
         firstDay = firstDay.addDays(-firstDayOfWeek);
     }
-
     for(int i = 0; i < 5; i++){
         QList<QString> l;
         for(int j = 0;j < 7;j++){
@@ -79,12 +87,9 @@ void MainWindow::initial(){
         list.at(i)->setEditTriggers(QAbstractItemView::NoEditTriggers);
         list.at(i)->setRowCount(100);
         list.at(i)->setColumnCount(6);
-        list.at(i)->setItem(0,0,new QTableWidgetItem("任务名称"));
-        list.at(i)->setItem(0,1,new QTableWidgetItem("任务等级"));
-        list.at(i)->setItem(0,2,new QTableWidgetItem("任务开始时间"));
-        list.at(i)->setItem(0,3,new QTableWidgetItem("任务结束时间"));
-        list.at(i)->setItem(0,4,new QTableWidgetItem("任务标签"));
-        list.at(i)->setItem(0,5,new QTableWidgetItem("日期"));
+        for(int j = 0; j<= 5; j++){
+            list.at(i)->setItem(0,j,new QTableWidgetItem(item_list.at(j)));
+        }
     }
     //设置默认index
     currentWeekIndex = getWeek(timeOfToday);
@@ -98,7 +103,6 @@ void MainWindow::initial(){
     ui->tabWidget->setCurrentIndex(nowIndex);
 }
 
-
 //返回任务对应周的index
 int MainWindow::match(QString str){
     if(str == "周一") return 0;
@@ -111,15 +115,19 @@ int MainWindow::match(QString str){
     else return -1;
 }
 
-//添加任务
 void MainWindow::addTask(){
     InputDialog* dialog = new InputDialog(this);
     dialog->exec();
     Task task;
+
     //获取task对应的周 设置task 开始结束时间、任务等级等信息
     QString week = dialog->taskStartTime.toString("ddd");
-    QString time_Of_Task = dialog->taskStartTime.toString("MM-dd");
     QDateTime startDate = dialog->taskStartTime;
+    QString time_Of_Task = startDate.toString("MM-dd");
+    QDateTime endDate = dialog->taskEndTime;
+    QString end_time_Of_Task = endDate.toString("MM-dd");
+    string startTime = dialog->taskStartTime.toString("hh:mm").toStdString();
+    string endTime = dialog->taskEndTime.toString("hh:mm").toStdString();
     int weekIndex = getWeek(startDate);
     DayTask dayTask;
     if(allTask.ifExistDayTaskList(time_Of_Task.toStdString())){
@@ -128,12 +136,8 @@ void MainWindow::addTask(){
     else{
         dayTask.setTimeOfToday(time_Of_Task.toStdString());
     }
-    string startTime = dialog->taskStartTime.toString("hh:mm").toStdString();
-    string endTime = dialog->taskEndTime.toString("hh:mm").toStdString();
-    if(startTime > endTime){
-        QMessageBox* remind_Dialog = new QMessageBox(this);
-        remind_Dialog->setText("输入时间信息错误");
-        remind_Dialog->exec();
+    if((startDate.toMSecsSinceEpoch() - endDate.toMSecsSinceEpoch() > 0) || (time_Of_Task == end_time_Of_Task && startTime > endTime)){
+        hintDialog("输入时间信息错误","Error");
         return;
     }
     else{
@@ -145,15 +149,14 @@ void MainWindow::addTask(){
         else if(dialog->taskLevel == "二") task.setTaskLevel(TaskLevel::level_2);
         else task.setTaskLevel(TaskLevel::level_3);
     }
+
     //设置对应的widget界面
     int w = match(week);
     ui->tabWidget->setCurrentIndex(w);
 
     //添加任务操作
     if(w == -1){
-        QMessageBox* remind_Dialog = new QMessageBox(this);
-        remind_Dialog->setText("输入错误");
-        remind_Dialog->exec();
+        hintDialog("输入错误","Error");
     }
     else{
         //list中添加任务
@@ -176,12 +179,6 @@ void MainWindow::addTask(){
             showOnScreen(dayTask,w);
         }
         ui->tabWidget->setCurrentIndex(w);
-//        allTask.saveAllTaskToFile();
-//        cout<<"000"<<endl;
-//        allTask = AllTask().readFromFile();
-//        cout<<"666"<<endl;
-//        cout<<allTask;
-//        cout<<"777"<<endl;
     }
 }
 
@@ -191,39 +188,19 @@ void MainWindow::deleteTask(){
         int currentRow = list.at(nowIndex)->currentRow();
         //从总任务中删除任务
         QAbstractItemModel *modessl = list.at(nowIndex)->model();
-        QModelIndex index_Name = modessl->index(currentRow,0);
-        QModelIndex index_Level = modessl->index(currentRow,1);
-        QModelIndex index_StartTime = modessl->index(currentRow,2);
-        QModelIndex index_EndTime = modessl->index(currentRow,3);
-        QModelIndex index_Label = modessl->index(currentRow,4);
         QModelIndex index_today = modessl->index(currentRow,5);
-        string taskName = modessl->data(index_Name).toString().toStdString();
-        string taskLevel = modessl->data(index_Level).toString().toStdString();
         string time_Of_Today = modessl->data(index_today).toString().toStdString();
-        TaskLevel level;
-        if(taskLevel == "一")  level = TaskLevel::level_1;
-        else if(taskLevel == "二")  level = TaskLevel::level_2;
-        else level = TaskLevel::level_3;
-        string taskStartTime = modessl->data(index_StartTime).toString().toStdString();
-        string taskEndTime = modessl->data(index_EndTime).toString().toStdString();
-        string taskLabel = modessl->data(index_Label).toString().toStdString();
-        Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
+        Task task = getData(currentRow);
         DayTask dayTask = allTask.getDayTaskMap(time_Of_Today);
         dayTask.deleteTask(task);
         list.at(nowIndex)->removeRow(row[currentWeekIndex-1][nowIndex]--);
         showOnScreen(dayTask,nowIndex);
     }
     else if(nowIndex == -1){
-        QMessageBox* remind_Dialog = new QMessageBox(this);
-        remind_Dialog->setWindowTitle("Error");
-        remind_Dialog->setText("输入错误");
-        remind_Dialog->exec();
+        hintDialog("输入错误","Error");
     }
     else {
-        QMessageBox* remind_Dialog = new QMessageBox(this);
-        remind_Dialog->setWindowTitle("Error");
-        remind_Dialog->setText("任务栏为空，请先设置任务");
-        remind_Dialog->exec();
+        hintDialog("任务栏为空，请先设置任务","Error");
     }
 }
 
@@ -239,33 +216,19 @@ void MainWindow::finished(int row1,int col){
     int x = remind_Dialog->exec();
     if(x == QMessageBox::Ok){
         QAbstractItemModel *modessl = list.at(nowIndex)->model();
-        QModelIndex index_Name = modessl->index(row1,0);
-        QModelIndex index_Level = modessl->index(row1,1);
-        QModelIndex index_StartTime = modessl->index(row1,2);
-        QModelIndex index_EndTime = modessl->index(row1,3);
-        QModelIndex index_Label = modessl->index(row1,4);
         QModelIndex index_today = modessl->index(row1,5);
-        string taskName = modessl->data(index_Name).toString().toStdString();
-        string taskLevel = modessl->data(index_Level).toString().toStdString();
         string time_Of_Today = modessl->data(index_today).toString().toStdString();
-        TaskLevel level;
-        if(taskLevel == "一")  level = TaskLevel::level_1;
-        else if(taskLevel == "二")  level = TaskLevel::level_2;
-        else level = TaskLevel::level_3;
-        string taskStartTime = modessl->data(index_StartTime).toString().toStdString();
-        string taskEndTime = modessl->data(index_EndTime).toString().toStdString();
-        string taskLabel = modessl->data(index_Label).toString().toStdString();
-        Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
+        Task task = getData(row1);
         DayTask dayTask = allTask.getDayTaskMap(time_Of_Today);
         dayTask.finishTask(task);
-        list.at(nowIndex)->removeRow(row1);
-        row[currentWeekIndex - 1][nowIndex]--;
+        list.at(nowIndex)->removeRow(row[currentWeekIndex - 1][nowIndex]--);
         showOnScreen(dayTask,nowIndex);
     }
     else {
         return;
     }
 }
+
 void MainWindow::showOnScreen(DayTask dayTask,int w){
     int current_Row = 1;
     for(auto it:dayTask.getTaskList()){
@@ -293,39 +256,29 @@ void MainWindow::cls(){
                 list.at(i)->setItem(j,k,new QTableWidgetItem(""));
     }
 }
+
 void MainWindow::modifyTask(){
     int nowIndex = ui->tabWidget->currentIndex();
     if(nowIndex != -1 && row[currentWeekIndex - 1][nowIndex] > 0){
         int currentRow = list.at(nowIndex)->currentRow();
         int currentCol = list.at(nowIndex)->currentColumn();
         if(currentRow == 0 || currentRow > row[currentWeekIndex - 1][nowIndex]){
-            QMessageBox* remind_Dialog = new QMessageBox(this);
-            remind_Dialog->setWindowTitle("Error");
-            remind_Dialog->setText("选择错误");
-            remind_Dialog->exec();
+            hintDialog("选择错误","Error");
         }
         else{
             QAbstractItemModel *modessl = list.at(nowIndex)->model();
-            QModelIndex index_Name = modessl->index(currentRow,0);
-            QModelIndex index_Level = modessl->index(currentRow,1);
-            QModelIndex index_StartTime = modessl->index(currentRow,2);
-            QModelIndex index_EndTime = modessl->index(currentRow,3);
-            QModelIndex index_Label = modessl->index(currentRow,4);
             QModelIndex index_today = modessl->index(currentRow,5);
-            string taskName = modessl->data(index_Name).toString().toStdString();
-            string taskLevel = modessl->data(index_Level).toString().toStdString();
+            Task task = getData(currentRow);
+            string taskName = task.getTaskName();
             string time_Of_Today = modessl->data(index_today).toString().toStdString();
             string modifyTime_Of_Today = time_Of_Today;
+            TaskLevel level = task.getTaskLevel();
+            string taskStartTime = task.getStartTime();
+            string taskEndTime = task.getEndTime();
+            string taskLabel = task.getTaskLabel();
             int modifyIndex = nowIndex;
-            TaskLevel level;
-            if(taskLevel == "一")  level = TaskLevel::level_1;
-            else if(taskLevel == "二")  level = TaskLevel::level_2;
-            else level = TaskLevel::level_3;
-            string taskStartTime = modessl->data(index_StartTime).toString().toStdString();
-            string taskEndTime = modessl->data(index_EndTime).toString().toStdString();
-            string taskLabel = modessl->data(index_Label).toString().toStdString();
             DayTask dayTask = allTask.getDayTaskMap(time_Of_Today);
-            dayTask.deleteTask(Task(taskStartTime,taskEndTime,taskName,level,taskLabel));
+            dayTask.deleteTask(task);
             QDateTime modifyTime;
             switch(currentCol){
             case 0:{
@@ -356,9 +309,7 @@ void MainWindow::modifyTask(){
                 modifyTime_Of_Today = startTimeInput->getDay().toStdString();
                 modifyTime = startTimeInput->getTime();
                 if(taskStartTime > taskEndTime){
-                    QMessageBox* remind_Dialog = new QMessageBox(this);
-                    remind_Dialog->setText("输入时间信息错误！");
-                    remind_Dialog->exec();
+                    hintDialog("输入时间错误","Error");
                     return;
                 }
                 break;
@@ -371,11 +322,8 @@ void MainWindow::modifyTask(){
                 endTimeInput->exec();
                 taskEndTime = endTimeInput->getTime().toString("hh:mm").toStdString();
                 modifyIndex = MainWindow::match(endTimeInput->getTime().toString("ddd"));
-                modifyTime_Of_Today = endTimeInput->getDay().toStdString();
                 if(taskStartTime > taskEndTime){
-                    QMessageBox* remind_Dialog = new QMessageBox(this);
-                    remind_Dialog->setText("输入时间信息错误！");
-                    remind_Dialog->exec();
+                    hintDialog("输入时间错误","Error");
                     return;
                 }
                 break;
@@ -393,10 +341,11 @@ void MainWindow::modifyTask(){
                 break;
             }
             }
-            list.at(nowIndex)->removeRow(currentRow);
-            row[currentWeekIndex - 1][nowIndex]--;
-            Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
+
+            list.at(nowIndex)->removeRow(row[currentWeekIndex - 1][nowIndex]--);
+            task = Task(taskStartTime,taskEndTime,taskName,level,taskLabel);
             if(modifyTime_Of_Today == time_Of_Today){
+                row[currentWeekIndex - 1][nowIndex]++;
                 dayTask.addTask(task);
                 showOnScreen(dayTask,nowIndex);
             }
@@ -423,9 +372,9 @@ void MainWindow::modifyTask(){
                     }
                 }
                 else{
+                    row[currentWeekIndex - 1][modifyIndex]++;
                     showOnScreen(dayTask,nowIndex);
                     showOnScreen(modifyDayTask,modifyIndex);
-                    row[currentWeekIndex - 1][modifyIndex]++;
                 }
                 ui->tabWidget->setCurrentIndex(modifyIndex);
             }
@@ -433,16 +382,10 @@ void MainWindow::modifyTask(){
 
     }
     else if(nowIndex == -1){
-        QMessageBox* remind_Dialog = new QMessageBox(this);
-        remind_Dialog->setWindowTitle("Error");
-        remind_Dialog->setText("输入错误");
-        remind_Dialog->exec();
+        hintDialog("输入错误","Error");
     }
     else {
-        QMessageBox* remind_Dialog = new QMessageBox(this);
-        remind_Dialog->setWindowTitle("Error");
-        remind_Dialog->setText("任务栏为空，请先设置任务");
-        remind_Dialog->exec();
+        hintDialog("任务栏为空，请先设置任务","Error");
     }
 }
 
@@ -452,14 +395,6 @@ void MainWindow::paintEvent(QPaintEvent* ){
     pix.load(":/uiBackground.jpg");
     pix = pix.scaled(900,700);
     painter.drawPixmap(list.at(1)->x(),list.at(1)->y(),pix);
-}
-
-void MainWindow::setDate(int day, int index){
-    for(int i = 0; i < 7;i++){
-        label_list.at(i)->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-        QString s = QString::number(day - index + i);
-        label_list.at(i)->setText(s);
-    }
 }
 
 int MainWindow::getWeek(QDateTime timeOfToday){
@@ -475,4 +410,74 @@ int MainWindow::getWeek(QDateTime timeOfToday){
         }
     }
     return 0;
+}
+
+void MainWindow::hintDialog(QString s1,QString s2){
+    QMessageBox* remind_Dialog = new QMessageBox(this);
+    remind_Dialog->setWindowTitle(s2);
+    remind_Dialog->setText(s1);
+    remind_Dialog->exec();
+}
+
+Task MainWindow::getData(int currentRow){
+    int nowIndex = ui->tabWidget->currentIndex();
+    QAbstractItemModel *modessl = list.at(nowIndex)->model();
+    QModelIndex index_Name = modessl->index(currentRow,0);
+    QModelIndex index_Level = modessl->index(currentRow,1);
+    QModelIndex index_StartTime = modessl->index(currentRow,2);
+    QModelIndex index_EndTime = modessl->index(currentRow,3);
+    QModelIndex index_Label = modessl->index(currentRow,4);
+    QModelIndex index_today = modessl->index(currentRow,5);
+    string taskName = modessl->data(index_Name).toString().toStdString();
+    string taskLevel = modessl->data(index_Level).toString().toStdString();
+    string time_Of_Today = modessl->data(index_today).toString().toStdString();
+    TaskLevel level;
+    if(taskLevel == "一")  level = TaskLevel::level_1;
+    else if(taskLevel == "二")  level = TaskLevel::level_2;
+    else level = TaskLevel::level_3;
+    string taskStartTime = modessl->data(index_StartTime).toString().toStdString();
+    string taskEndTime = modessl->data(index_EndTime).toString().toStdString();
+    string taskLabel = modessl->data(index_Label).toString().toStdString();
+    Task task(taskStartTime,taskEndTime,taskName,level,taskLabel);
+    return task;
+}
+
+void MainWindow::up(){
+    if(currentWeekIndex > 1){
+        cls();
+        currentWeekIndex = currentWeekIndex - 1;
+        for(int i = 0;i < 7; i++){
+            label_list.at(i)->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+            label_list.at(i)->setText(weekContainer[currentWeekIndex].at(i).split("-")[1]);
+            if(allTask.ifExistDayTaskList(weekContainer[currentWeekIndex].at(i).toStdString())){
+                showOnScreen(allTask.getDayTaskMap(weekContainer[currentWeekIndex].at(i).toStdString()),i);
+            }
+        }
+
+    }
+    else return;
+}
+
+void MainWindow::down(){
+    if(currentWeekIndex < 5){
+        cls();
+        currentWeekIndex = currentWeekIndex + 1;
+        for(int i = 0;i < 7; i++){
+            label_list.at(i)->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+            label_list.at(i)->setText(weekContainer[currentWeekIndex].at(i).split("-")[1]);
+            if(allTask.ifExistDayTaskList(weekContainer[currentWeekIndex].at(i).toStdString())){
+                showOnScreen(allTask.getDayTaskMap(weekContainer[currentWeekIndex].at(i).toStdString()),i);
+            }
+        }
+    }
+    else return;
+}
+
+void MainWindow::showAllTask(){
+    showDialog* dialog = new showDialog(0,this);
+    dialog->show();
+}
+
+void MainWindow::showFinishedTask(){
+
 }

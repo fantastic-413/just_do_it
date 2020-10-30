@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by L&S&P& on 2020/9/19.
 //
 
@@ -29,7 +29,6 @@ private:
 public:
     //构造函数与析构函数
     Task();
-
     Task(const string &startTime, const string &endTime, const string &taskName, TaskLevel taskLevel,
          const string &taskLabel);
 

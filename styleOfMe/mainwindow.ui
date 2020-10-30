@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -83,16 +83,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="selBtn">
+      <widget class="QPushButton" name="upBtn">
        <property name="text">
-        <string>查询</string>
+        <string>切换↑</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="delBtn">
+      <widget class="QPushButton" name="downBtn">
        <property name="text">
-        <string>删除</string>
+        <string>切换↓</string>
        </property>
       </widget>
      </item>
@@ -107,6 +107,13 @@
       <widget class="QPushButton" name="modBtn">
        <property name="text">
         <string>修改</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delBtn">
+       <property name="text">
+        <string>删除</string>
        </property>
       </widget>
      </item>
@@ -224,8 +231,8 @@
     <property name="title">
      <string>查看</string>
     </property>
-    <addaction name="action111_2"/>
-    <addaction name="action222"/>
+    <addaction name="actionAllTask"/>
+    <addaction name="actionFinishedTask"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
@@ -248,12 +255,12 @@
     <string>English</string>
    </property>
   </action>
-  <action name="action111_2">
+  <action name="actionAllTask">
    <property name="text">
     <string>总任务栏</string>
    </property>
   </action>
-  <action name="action222">
+  <action name="actionFinishedTask">
    <property name="text">
     <string>已完成任务</string>
    </property>

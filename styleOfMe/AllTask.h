@@ -44,6 +44,7 @@ public:
 
     AllTask(const list<Task> &allTaskList, const list<Task> &finishedTaskList, const map<string,DayTask> &dayTaskMap);
 
+    friend class showDialog;
     virtual ~AllTask();
     //Getter and Setter
 
@@ -59,7 +60,6 @@ public:
     friend ostream &operator<<(ostream &os, const AllTask &allTask);
     //重载==和！=
     bool operator==(const AllTask &rhs) const;
-
     bool operator!=(const AllTask &rhs) const;
 };
 

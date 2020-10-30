@@ -26,6 +26,8 @@ public:
     QList<QTableWidget*> list;//下标从0开始
     QList<QLabel*> label_list;//下标从0开始
     QList<QString> week_list;//下标从0开始
+    QList<QWidget*> tab_list;
+    QList<QString> item_list;
     void addTask();
     void deleteTask();
     void showOnScreen(DayTask dayTask,int w);
@@ -35,6 +37,12 @@ public:
     void cls();
     void finished(int row,int col);
     int row[5][7];
+    void hintDialog(QString s1,QString s2 = "");
+    Task getData(int currentRow);
+    void up();
+    void down();
+    void showAllTask();
+    void showFinishedTask();
 private:
     QMap<int,QList<QString>> weekContainer; //下标从1开始
     Ui::MainWindow *ui;

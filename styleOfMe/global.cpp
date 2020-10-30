@@ -3,4 +3,4 @@
 //
 
 #include "global.h"
-AllTask allTask = AllTask().readFromFile();
+AllTask allTask = AllTask();

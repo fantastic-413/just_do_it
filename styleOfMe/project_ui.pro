@@ -18,6 +18,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     modifydialog.cpp \
+    showdialog.cpp \
     timeinput.cpp \
     timemodifydialog.cpp
 
@@ -30,6 +31,7 @@ HEADERS += \
     leveldialog.h \
     mainwindow.h \
     modifydialog.h \
+    showdialog.h \
     timeinput.h \
     timemodifydialog.h
 
@@ -38,6 +40,7 @@ FORMS += \
     leveldialog.ui \
     mainwindow.ui \
     modifydialog.ui \
+    showdialog.ui \
     timeinput.ui \
     timemodifydialog.ui
 
