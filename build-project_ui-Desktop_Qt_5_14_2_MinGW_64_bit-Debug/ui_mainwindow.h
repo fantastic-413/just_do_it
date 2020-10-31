@@ -57,6 +57,7 @@ public:
     QLabel *label_5;
     QLabel *label_6;
     QLabel *label_7;
+    QLabel *monthLabel;
     QMenuBar *menubar;
     QMenu *menu;
     QMenu *menu_2;
@@ -163,6 +164,9 @@ public:
         label_7 = new QLabel(centralwidget);
         label_7->setObjectName(QString::fromUtf8("label_7"));
         label_7->setGeometry(QRect(500, 30, 51, 16));
+        monthLabel = new QLabel(centralwidget);
+        monthLabel->setObjectName(QString::fromUtf8("monthLabel"));
+        monthLabel->setGeometry(QRect(850, 40, 72, 15));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -214,7 +218,7 @@ public:
         addBtn->setText(QCoreApplication::translate("MainWindow", "\346\267\273\345\212\240", nullptr));
         upBtn->setText(QCoreApplication::translate("MainWindow", "\345\210\207\346\215\242\342\206\221", nullptr));
         downBtn->setText(QCoreApplication::translate("MainWindow", "\345\210\207\346\215\242\342\206\223", nullptr));
-        impBtn->setText(QCoreApplication::translate("MainWindow", "\345\257\274\345\205\245", nullptr));
+        impBtn->setText(QCoreApplication::translate("MainWindow", "\344\273\212\345\244\251", nullptr));
         modBtn->setText(QCoreApplication::translate("MainWindow", "\344\277\256\346\224\271", nullptr));
         delBtn->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
@@ -224,6 +228,7 @@ public:
         label_5->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        monthLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         menu->setTitle(QCoreApplication::translate("MainWindow", "\350\257\255\350\250\200", nullptr));
         menu_2->setTitle(QCoreApplication::translate("MainWindow", "\346\237\245\347\234\213", nullptr));
         menu_3->setTitle(QCoreApplication::translate("MainWindow", "\350\247\206\345\233\276", nullptr));

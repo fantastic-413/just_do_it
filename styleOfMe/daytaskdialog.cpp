@@ -15,7 +15,8 @@ DayTaskDialog::DayTaskDialog(QWidget *parent) :
 
 void DayTaskDialog::init()
 {
-
+    setWindowTitle("当天任务");
+    setWindowIcon(QIcon(":/当天任务.jpg"));
     QStringList strList;
     QString taskName;
 
@@ -29,16 +30,6 @@ void DayTaskDialog::init()
 
     ItemModel = new QStandardItemModel(this);
 
-//    QStringList strList;
-//    strList.append("A");
-//    strList.append("B");
-
-//    strList.append("C");
-//    strList.append("D");
-//    strList.append("E");
-//    strList.append("F");
-//    strList.append("G");
-
     int nCount = strList.size();
     for(int i = 0; i < nCount; i++)
     {
@@ -47,9 +38,10 @@ void DayTaskDialog::init()
         ItemModel->appendRow(item);
     }
     ui->listView->setModel(ItemModel);
-    ui->listView->setFixedSize(200,300);
 
-    connect(ui->listView,SIGNAL(clicked(QModelIndex)),this,SLOT(showClick(QModelIndex)));
+    ui->listView->setFixedSize(600, 800);
+
+    //connect(ui->listView,SIGNAL(clicked(QModelIndex)),this,SLOT(showClick(QModelIndex)));
 }
 
 void DayTaskDialog::showClick(QModelIndex index)

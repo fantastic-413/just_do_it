@@ -38,11 +38,7 @@ void AllTask::setDayTaskMap(string time_of_Today, DayTask dayTask) {
 
 //从文件"allTask.txt"中读取allTask
 AllTask AllTask::readFromFile() {
-<<<<<<< HEAD
-    ifstream ifs(":\\allTask.txt", ios::in | ios::binary);
-=======
     ifstream ifs("D:\\allTask.txt", ios::binary | ios::in);
->>>>>>> 13cfd61692f6f0362127d80cda83511b28f18a17
     if (!ifs.is_open()) {
         ifs.close();
         return AllTask();

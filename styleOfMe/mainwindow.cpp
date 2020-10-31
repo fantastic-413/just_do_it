@@ -44,17 +44,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionAllTask,&QAction::triggered,this,&MainWindow::showAllTask);
     //已完成任务栏
     connect(ui->actionFinishedTask,&QAction::triggered,this,&MainWindow::showFinishedTask);
-<<<<<<< HEAD
+
     //月视图
     connect(ui->actiony, &QAction::triggered, this, [=](){
         CalendarWidget *calendar = new CalendarWidget(nullptr);
         calendar->setFixedSize(600,400);
         calendar->show();
     });
-=======
+
     //今天
     connect(ui->impBtn,&QPushButton::clicked,this,&MainWindow::backToToday);
->>>>>>> 13cfd61692f6f0362127d80cda83511b28f18a17
 }
 //析构函数
 MainWindow::~MainWindow()

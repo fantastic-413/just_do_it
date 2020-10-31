@@ -19,17 +19,14 @@ CalendarWidget::CalendarWidget(QWidget *parent) : QCalendarWidget(parent)
     setWindowTitle("月视图");
 
     //上面换个好看的图标
-    setWindowIcon(QIcon(":/Image/arrow_left.png"));
-//    connect(this, &QCalendarWidget::activated, [=](){
-//        DayTaskDialog * dialog = new DayTaskDialog(this);
+    setWindowIcon(QIcon(":/Moon.jpg"));
 
-//        dialog->show();
-//    });
 }
 
 void CalendarWidget::initUI()
 {
-    qDebug() << "进入initUI";
+
+
     QMenu *monthMenu = QCalendarWidget::findChild<QMenu*>();
     Q_ASSERT( nullptr != monthMenu);
     QToolButton *monthBtn = qobject_cast<QToolButton*>(monthMenu->parentWidget());
@@ -62,7 +59,7 @@ void CalendarWidget::initUI()
 
 void CalendarWidget::initSetting()
 {
-    qDebug() << "进入initSetting";
+
     setLocale(QLocale(QLocale::Chinese));
     setSelectionMode(QCalendarWidget::SingleSelection);
     setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
@@ -93,15 +90,19 @@ void CalendarWidget::paintCell(QPainter *painter, const QRect &rect, const QDate
     switch(n){
         case 0: painter->setBrush(QColor(240, 255, 255));
         break;
-        case 1:
+        case 1: painter->setBrush(QColor(210, 210, 255));
+        break;
         case 2: painter->setBrush(QColor(0, 206, 250));
         break;
-        case 3:
+        case 3: painter->setBrush(QColor(0, 134, 139));
+        break;
         case 4: painter->setBrush(QColor(34, 149, 34));
         break;
-        case 5:
-        case 6:
-        case 7: painter->setBrush(QColor(255, 165, 0));
+        case 5: painter->setBrush(QColor(255, 215, 0));
+        break;
+        case 6: painter->setBrush(QColor(205, 92, 0));
+        break;
+        case 7: painter->setBrush(QColor(255, 106, 106));
         break;
         default:painter->setBrush(QColor(139, 0 , 0));
         break;

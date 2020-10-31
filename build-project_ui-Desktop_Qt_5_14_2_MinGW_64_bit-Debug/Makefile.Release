@@ -168,7 +168,9 @@ compiler_rcc_clean:
 	-$(DEL_FILE) release\qrc_res.cpp
 release/qrc_res.cpp: ../styleOfMe/res.qrc \
 		../../Qt/5.14.2/mingw73_64/bin/rcc.exe \
+		../styleOfMe/????.jpg \
 		../styleOfMe/arrow_right.jpg \
+		../styleOfMe/Moon.jpg \
 		../styleOfMe/arrow_left.jpg \
 		../styleOfMe/uiBackground.jpg
 	D:\Qt\5.14.2\mingw73_64\bin\rcc.exe -name res ..\styleOfMe\res.qrc -o release\qrc_res.cpp
@@ -408,6 +410,8 @@ release/moc_daytaskdialog.cpp: ../styleOfMe/daytaskdialog.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/QStandardItemModel \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qstandarditemmodel.h \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QModelIndex \
+		../styleOfMe/DayTask.h \
+		../styleOfMe/Task.h \
 		release/moc_predefs.h \
 		../../Qt/5.14.2/mingw73_64/bin/moc.exe
 	D:\Qt\5.14.2\mingw73_64\bin\moc.exe $(DEFINES) --include D:/just_do_it/build-project_ui-Desktop_Qt_5_14_2_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/5.14.2/mingw73_64/mkspecs/win32-g++ -ID:/just_do_it/styleOfMe -ID:/Qt/5.14.2/mingw73_64/include -ID:/Qt/5.14.2/mingw73_64/include/QtWidgets -ID:/Qt/5.14.2/mingw73_64/include/QtGui -ID:/Qt/5.14.2/mingw73_64/include/QtANGLE -ID:/Qt/5.14.2/mingw73_64/include/QtCore -I. -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include ..\styleOfMe\daytaskdialog.h -o release\moc_daytaskdialog.cpp
@@ -768,6 +772,8 @@ release/moc_mainwindow.cpp: ../styleOfMe/mainwindow.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlabel.h \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QMap \
 		../styleOfMe/global.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QDateTime \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h \
 		release/moc_predefs.h \
 		../../Qt/5.14.2/mingw73_64/bin/moc.exe
 	D:\Qt\5.14.2\mingw73_64\bin\moc.exe $(DEFINES) --include D:/just_do_it/build-project_ui-Desktop_Qt_5_14_2_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/5.14.2/mingw73_64/mkspecs/win32-g++ -ID:/just_do_it/styleOfMe -ID:/Qt/5.14.2/mingw73_64/include -ID:/Qt/5.14.2/mingw73_64/include/QtWidgets -ID:/Qt/5.14.2/mingw73_64/include/QtGui -ID:/Qt/5.14.2/mingw73_64/include/QtANGLE -ID:/Qt/5.14.2/mingw73_64/include/QtCore -I. -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include ..\styleOfMe\mainwindow.h -o release\moc_mainwindow.cpp
@@ -1558,7 +1564,11 @@ release/calendarwidget.o: ../styleOfMe/calendarwidget.cpp ../styleOfMe/calendarw
 		../../Qt/5.14.2/mingw73_64/include/QtCore/qabstractitemmodel.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/QStandardItemModel \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qstandarditemmodel.h \
-		../../Qt/5.14.2/mingw73_64/include/QtCore/QModelIndex
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QModelIndex \
+		../styleOfMe/DayTask.h \
+		../styleOfMe/Task.h \
+		../styleOfMe/AllTask.h \
+		../styleOfMe/global.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\calendarwidget.o ..\styleOfMe\calendarwidget.cpp
 
 release/daytaskdialog.o: ../styleOfMe/daytaskdialog.cpp ../styleOfMe/daytaskdialog.h \
@@ -1675,10 +1685,44 @@ release/daytaskdialog.o: ../styleOfMe/daytaskdialog.cpp ../styleOfMe/daytaskdial
 		../../Qt/5.14.2/mingw73_64/include/QtGui/QStandardItemModel \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qstandarditemmodel.h \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QModelIndex \
+		../styleOfMe/DayTask.h \
+		../styleOfMe/Task.h \
 		ui_daytaskdialog.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QVariant \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qeventloop.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QListView \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlistview.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractitemview.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qitemselectionmodel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qstyleoption.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qvalidator.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qregularexpression.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qslider.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractslider.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qstyle.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtabbar.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qrubberband.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QVBoxLayout \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qboxlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qgridlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QWidget \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QMessageBox \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qmessagebox.h \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdialog.h
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdialog.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QString \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\daytaskdialog.o ..\styleOfMe\daytaskdialog.cpp
 
 release/global.o: ../styleOfMe/global.cpp ../styleOfMe/global.h \
@@ -1796,16 +1840,16 @@ release/inputdialog.o: ../styleOfMe/inputdialog.cpp ../styleOfMe/inputdialog.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qvector2d.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qtouchdevice.h \
 		ui_inputdialog.h \
-		../styleOfMe/timeinput.h \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QWidget \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QTableWidget \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtablewidget.h \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtableview.h \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractitemview.h \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
-		../../Qt/5.14.2/mingw73_64/include/QtCore/qabstractitemmodel.h \
-		../../Qt/5.14.2/mingw73_64/include/QtCore/qitemselectionmodel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QVariant \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qeventloop.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QComboBox \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qcombobox.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qstyleoption.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractspinbox.h \
@@ -1818,9 +1862,35 @@ release/inputdialog.o: ../styleOfMe/inputdialog.cpp ../styleOfMe/inputdialog.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtabbar.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qrubberband.h \
-		../../Qt/5.14.2/mingw73_64/include/QtCore/QDebug \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QComboBox \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qcombobox.h
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qabstractitemmodel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QHBoxLayout \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qboxlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qgridlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QLabel \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlabel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QLineEdit \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlineedit.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qtextcursor.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qtextformat.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qpen.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qtextoption.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QPushButton \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qpushbutton.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QSpacerItem \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QVBoxLayout \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QWidget \
+		../styleOfMe/timeinput.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QTableWidget \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtablewidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtableview.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractitemview.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qitemselectionmodel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\inputdialog.o ..\styleOfMe\inputdialog.cpp
 
 release/leveldialog.o: ../styleOfMe/leveldialog.cpp ../styleOfMe/leveldialog.h \
@@ -1930,7 +2000,35 @@ release/leveldialog.o: ../styleOfMe/leveldialog.cpp ../styleOfMe/leveldialog.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qvector2d.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qtouchdevice.h \
 		../styleOfMe/Task.h \
-		ui_leveldialog.h
+		ui_leveldialog.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QVariant \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qeventloop.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QComboBox \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qcombobox.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qstyleoption.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qvalidator.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qregularexpression.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qicon.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qslider.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractslider.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qstyle.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtabbar.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtabwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qrubberband.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qabstractitemmodel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QDialogButtonBox \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QLabel \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlabel.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\leveldialog.o ..\styleOfMe\leveldialog.cpp
 
 release/main.o: ../styleOfMe/main.cpp ../styleOfMe/mainwindow.h \
@@ -2066,6 +2164,8 @@ release/main.o: ../styleOfMe/main.cpp ../styleOfMe/mainwindow.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlabel.h \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QMap \
 		../styleOfMe/global.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QDateTime \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
@@ -2208,17 +2308,40 @@ release/mainwindow.o: ../styleOfMe/mainwindow.cpp ../styleOfMe/mainwindow.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlabel.h \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QMap \
 		../styleOfMe/global.h \
-		ui_mainwindow.h \
-		../styleOfMe/inputdialog.h \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QDateTime \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QDialog \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdialog.h \
-		../styleOfMe/timeinput.h \
-		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QWidget \
+		ui_mainwindow.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QVariant \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QAction \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qaction.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qactiongroup.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qeventloop.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QMenu \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qmenu.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QMenuBar \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qmenubar.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QPushButton \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qpushbutton.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractbutton.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QStatusBar \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qstatusbar.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QTabWidget \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QVBoxLayout \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qboxlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qgridlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QWidget \
+		../styleOfMe/inputdialog.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QDialog \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdialog.h \
+		../styleOfMe/timeinput.h \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QDebug \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QString \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QList \
@@ -2232,7 +2355,10 @@ release/mainwindow.o: ../styleOfMe/mainwindow.cpp ../styleOfMe/mainwindow.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qtextoption.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qpen.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/QPixmap \
-		../styleOfMe/showdialog.h
+		../styleOfMe/showdialog.h \
+		../styleOfMe/calendarwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QCalendarWidget \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qcalendarwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\styleOfMe\mainwindow.cpp
 
 release/modifydialog.o: ../styleOfMe/modifydialog.cpp ../styleOfMe/modifydialog.h \
@@ -2341,7 +2467,32 @@ release/modifydialog.o: ../styleOfMe/modifydialog.cpp ../styleOfMe/modifydialog.
 		../../Qt/5.14.2/mingw73_64/include/QtCore/qfiledevice.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qvector2d.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qtouchdevice.h \
-		ui_modifydialog.h
+		ui_modifydialog.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QVariant \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qeventloop.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QDialogButtonBox \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QHBoxLayout \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qboxlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qgridlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QLabel \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlabel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QLineEdit \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlineedit.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qtextcursor.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qtextformat.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qpen.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qtextoption.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\modifydialog.o ..\styleOfMe\modifydialog.cpp
 
 release/showdialog.o: ../styleOfMe/showdialog.cpp ../styleOfMe/showdialog.h \
@@ -2453,6 +2604,42 @@ release/showdialog.o: ../styleOfMe/showdialog.cpp ../styleOfMe/showdialog.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.14.2/mingw73_64/include/QtGui/qicon.h \
 		ui_showdialog.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QVariant \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qeventloop.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QHeaderView \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qheaderview.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractitemview.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qabstractitemmodel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qitemselectionmodel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qstyleoption.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qvalidator.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qregularexpression.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qslider.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractslider.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qstyle.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtabbar.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qrubberband.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QMenuBar \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qmenubar.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qmenu.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qaction.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qactiongroup.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QStatusBar \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qstatusbar.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QTableWidget \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtablewidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtableview.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QWidget \
 		../styleOfMe/global.h \
 		../styleOfMe/AllTask.h \
 		../styleOfMe/DayTask.h \
@@ -2584,7 +2771,24 @@ release/timeinput.o: ../styleOfMe/timeinput.cpp ../styleOfMe/timeinput.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtabbar.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qrubberband.h \
-		ui_timeinput.h
+		ui_timeinput.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QVariant \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qeventloop.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QDateTimeEdit \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdatetimeedit.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcalendar.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QVBoxLayout \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qboxlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayout.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\timeinput.o ..\styleOfMe\timeinput.cpp
 
 release/timemodifydialog.o: ../styleOfMe/timemodifydialog.cpp ../styleOfMe/timemodifydialog.h \
@@ -2696,6 +2900,25 @@ release/timemodifydialog.o: ../styleOfMe/timemodifydialog.cpp ../styleOfMe/timem
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QDateTime \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/qdatetime.h \
 		ui_timemodifydialog.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/QVariant \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QApplication \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qeventloop.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QDateTimeEdit \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdatetimeedit.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qcalendar.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		../../Qt/5.14.2/mingw73_64/include/QtGui/qvalidator.h \
+		../../Qt/5.14.2/mingw73_64/include/QtCore/qregularexpression.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QDialogButtonBox \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/QLabel \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qlabel.h \
+		../../Qt/5.14.2/mingw73_64/include/QtWidgets/qframe.h \
 		../../Qt/5.14.2/mingw73_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\timemodifydialog.o ..\styleOfMe\timemodifydialog.cpp
 

@@ -3,5 +3,7 @@
         <file>uiBackground.jpg</file>
         <file>arrow_left.jpg</file>
         <file>arrow_right.jpg</file>
+        <file>当天任务.jpg</file>
+        <file>Moon.jpg</file>
     </qresource>
 </RCC>

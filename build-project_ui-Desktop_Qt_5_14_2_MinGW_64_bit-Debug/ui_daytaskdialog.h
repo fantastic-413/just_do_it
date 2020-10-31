@@ -13,8 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -23,28 +22,27 @@ class Ui_DayTaskDialog
 {
 public:
     QWidget *centralwidget;
+    QVBoxLayout *verticalLayout;
     QListView *listView;
-    QMenuBar *menubar;
-    QStatusBar *statusbar;
 
     void setupUi(QMainWindow *DayTaskDialog)
     {
         if (DayTaskDialog->objectName().isEmpty())
             DayTaskDialog->setObjectName(QString::fromUtf8("DayTaskDialog"));
-        DayTaskDialog->resize(800, 600);
+        DayTaskDialog->resize(300, 425);
+        DayTaskDialog->setMinimumSize(QSize(300, 425));
+        DayTaskDialog->setMaximumSize(QSize(300, 425));
         centralwidget = new QWidget(DayTaskDialog);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        centralwidget->setMinimumSize(QSize(3, 0));
+        verticalLayout = new QVBoxLayout(centralwidget);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         listView = new QListView(centralwidget);
         listView->setObjectName(QString::fromUtf8("listView"));
-        listView->setGeometry(QRect(0, 0, 321, 341));
+
+        verticalLayout->addWidget(listView);
+
         DayTaskDialog->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(DayTaskDialog);
-        menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
-        DayTaskDialog->setMenuBar(menubar);
-        statusbar = new QStatusBar(DayTaskDialog);
-        statusbar->setObjectName(QString::fromUtf8("statusbar"));
-        DayTaskDialog->setStatusBar(statusbar);
 
         retranslateUi(DayTaskDialog);
 
