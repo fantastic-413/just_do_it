@@ -43,15 +43,10 @@ AllTask AllTask::readFromFile() {
         ifs.close();
         return AllTask();
     } else {
-//        AllTask allTask_read;
-//        ifs.read((char *)&allTask_read, sizeof(AllTask));
-//        ifs.close();
-//        (*this) = allTask_read;
-//        return (*this);
         AllTask allTask_help;
         DayTask dayTask;
         Task task;
-        string time_of_Today;
+        char* time_of_Today = new char[10];
         //读取总任务类
         //1.读取总任务类里各成员变量个数
         //a.读取总任务个数
@@ -67,6 +62,7 @@ AllTask AllTask::readFromFile() {
         for (int i = 1; i <= allTask_size; ++i){
             ifs.read((char*)&task,sizeof(Task));
             allTask_help.addAllTask(task);
+            cout<<"*"<<task<<"*";
         }
         //3.逐个读取已完成任务并加入集合
         for (int i = 1; i <= finishedTask_size; ++i){
@@ -75,19 +71,21 @@ AllTask AllTask::readFromFile() {
         }
         //4.逐个读取日任务类并加入map集合
         for (int i = 1; i <= dayTask_map_size; ++i){
-            ifs.read((char*)&time_of_Today,sizeof(string));
+            ifs.read(time_of_Today,sizeof(time_of_Today));
+            cout<<"*"<<time_of_Today<<"*";
             //读取日任务类
             //1.给日任务类赋时间
-            dayTask.setTimeOfToday(time_of_Today);
+            dayTask.setTimeOfToday((string)time_of_Today);
             //2.读取日任务类里任务个数
             int task_size;
             ifs.read((char*)&task_size,sizeof(int));
             //3.逐个读取任务赋给日任务类
             for (int i = 1; i <= task_size; ++i){
                 ifs.read((char*)&task,sizeof(task));
-                dayTask.addTask(task);
+                cout<<"*"<<task<<"*";
+                dayTask.justAddTask(task);
             }
-            allTask_help.setDayTaskMap(time_of_Today,dayTask);
+            allTask_help.setDayTaskMap((string)time_of_Today,dayTask);
         }
         ifs.close();
         return allTask_help;
@@ -96,9 +94,6 @@ AllTask AllTask::readFromFile() {
 //把allTask保存到文件"allTask.txt"中
 void AllTask::saveAllTaskToFile() {
     ofstream ofs("D:\\allTask.txt", ios::out | ios::binary | ios::trunc);
-//    AllTask allTask_write = (*this);
-//    ofs.write((char*)&allTask_write,sizeof(AllTask));
-//    ofs.close();
     //写入总任务类
     //1.写入总任务类里各成员变量个数，方便读取
     //a.写入总任务个数
@@ -113,7 +108,6 @@ void AllTask::saveAllTaskToFile() {
     //2.逐个写入总任务集合中任务
     for (auto task:(*this).allTask_list) {
         ofs.write((char*)&task,sizeof(Task));
-        cout<<task;
     }
     //3.逐个写入已完成任务集合中任务
     for (auto task:(*this).finishedTask_list) {
@@ -121,7 +115,10 @@ void AllTask::saveAllTaskToFile() {
     }
     //4.逐个写入日任务类map集合中日期与日任务类
     for (auto dayTask_map:(*this).DayTask_map) {
-        ofs.write((char*)&dayTask_map.first,sizeof(string));
+        char* time_of_Today = new char[10];
+        dayTask_map.first.copy(time_of_Today,10);
+        cout<<"*"<<time_of_Today<<"*";
+        ofs.write(time_of_Today,sizeof(time_of_Today));
         //写入日任务类
         //1.写入日任务类里任务个数，方便读取任务
         int task_size = dayTask_map.second.getTaskList().size();
@@ -177,16 +174,17 @@ void AllTask::setFinishedTaskList(const list<Task> &finishedTaskList) {
 ostream &operator<<(ostream &os, const AllTask &allTask) {
     os << "allTask_list: " << endl;
     for (auto task:allTask.allTask_list) {
-        os << task << endl;
+        os << task;
     }
     os << " finishedTask_list: " << endl;
     for (auto task:allTask.finishedTask_list) {
-        os << task << endl;
+        os << task;
     }
     os << " DayTask_map: " << endl;
     for (auto dayTask_map:allTask.DayTask_map) {
-        os << dayTask_map.second << endl;
+        os << dayTask_map.second;
     }
+    os<<endl;
     return os;
 }
 

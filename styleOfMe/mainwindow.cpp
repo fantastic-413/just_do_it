@@ -51,7 +51,7 @@ MainWindow::~MainWindow()
 }
 //初始化
 void MainWindow::initial(){
-    cout<<allTask<<endl;
+    cout<<allTask;
     week_list<<"周一"<<"周二"<<"周三"<<"周四"<<"周五"<<"周六"<<"周日";
     tab_list<< ui->tab << ui->tab_2 << ui->tab_3 << ui->tab_4 << ui->tab_5 << ui->tab_6 << ui->tab_7;
     label_list << ui->label << ui->label_2 << ui->label_3 << ui->label_4 << ui->label_5 << ui->label_6 << ui->label_7;
@@ -180,6 +180,8 @@ void MainWindow::addTask(){
         }
         ui->tabWidget->setCurrentIndex(w);
     }
+//    allTask.saveAllTaskToFile();
+//    allTask = allTask.readFromFile();
 }
 
 void MainWindow::deleteTask(){
@@ -479,5 +481,6 @@ void MainWindow::showAllTask(){
 }
 
 void MainWindow::showFinishedTask(){
-
+    showDialog* dialog = new showDialog(1,this);
+    dialog->show();
 }

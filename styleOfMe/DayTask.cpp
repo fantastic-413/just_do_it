@@ -11,9 +11,13 @@ void DayTask::addTask(Task task) {
     task_list.push_back(task);
     task_list.sort();
     allTask.addAllTask(task);
-    allTask.setDayTaskMap(time_of_Today, *this);
+    allTask.setDayTaskMap(this->time_of_Today, *this);
 }
-
+void DayTask::justAddTask(Task task) {
+    task_label_list.push_back(task.getTaskLabel());
+    task_list.push_back(task);
+    task_list.sort();
+}
 //删除任务 deleteTask()
 void DayTask::deleteTask(Task task) {
     task_label_list.remove(task.getTaskLabel());
@@ -73,8 +77,9 @@ ostream &operator<<(ostream &os, const DayTask &dayTask) {
     }
     os << " task_list: " << endl;
     for (auto task:dayTask.task_list) {
-        os << task << endl;
+        os << task;
     }
+    os<<endl;
     return os;
 }
 
