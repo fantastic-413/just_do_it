@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>uiBackground.jpg</file>
+        <file>arrow_left.jpg</file>
+        <file>arrow_right.jpg</file>
     </qresource>
 </RCC>

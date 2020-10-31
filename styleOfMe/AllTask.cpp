@@ -27,7 +27,7 @@ bool AllTask::ifExistDayTaskList(string time_of_Today) {
 }
 
 //依据时间(某天)查找对应任务集合 getDayTaskMap(string time_of_Toady)
-DayTask &AllTask::getDayTaskMap(string time_of_Today) {
+DayTask &AllTask::getDayTaskMap(string time_of_Today) {  //"10-13"
     return DayTask_map[time_of_Today];
 }
 
@@ -38,7 +38,7 @@ void AllTask::setDayTaskMap(string time_of_Today, DayTask dayTask) {
 
 //从文件"allTask.txt"中读取allTask
 AllTask AllTask::readFromFile() {
-    ifstream ifs("D:\\allTask.txt", ios::in | ios::binary);
+    ifstream ifs(":\\allTask.txt", ios::in | ios::binary);
     if (!ifs.is_open()) {
         ifs.close();
         return AllTask();

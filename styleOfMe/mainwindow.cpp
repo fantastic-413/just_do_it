@@ -20,6 +20,8 @@
 #include<QPainter>
 #include<QPixmap>
 #include"showdialog.h"
+#include "calendarwidget.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -42,6 +44,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionAllTask,&QAction::triggered,this,&MainWindow::showAllTask);
     //已完成任务栏
     connect(ui->actionFinishedTask,&QAction::triggered,this,&MainWindow::showFinishedTask);
+    //月视图
+    connect(ui->actiony, &QAction::triggered, this, [=](){
+        CalendarWidget *calendar = new CalendarWidget(nullptr);
+        calendar->setFixedSize(600,400);
+        calendar->show();
+    });
 }
 //析构函数
 MainWindow::~MainWindow()

@@ -12,6 +12,8 @@ SOURCES += \
     AllTask.cpp \
     DayTask.cpp \
     Task.cpp \
+    calendarwidget.cpp \
+    daytaskdialog.cpp \
     global.cpp \
     inputdialog.cpp \
     leveldialog.cpp \
@@ -26,6 +28,8 @@ HEADERS += \
     AllTask.h \
     DayTask.h \
     Task.h \
+    calendarwidget.h \
+    daytaskdialog.h \
     global.h \
     inputdialog.h \
     leveldialog.h \
@@ -36,6 +40,7 @@ HEADERS += \
     timemodifydialog.h
 
 FORMS += \
+    daytaskdialog.ui \
     inputdialog.ui \
     leveldialog.ui \
     mainwindow.ui \

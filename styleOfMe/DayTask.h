@@ -52,6 +52,7 @@ public:
     bool operator==(const DayTask &rhs) const;
 
     bool operator!=(const DayTask &rhs) const;
+
 };
 
 
