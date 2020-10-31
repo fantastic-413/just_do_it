@@ -42,21 +42,22 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionAllTask,&QAction::triggered,this,&MainWindow::showAllTask);
     //已完成任务栏
     connect(ui->actionFinishedTask,&QAction::triggered,this,&MainWindow::showFinishedTask);
+    //今天
+    connect(ui->impBtn,&QPushButton::clicked,this,&MainWindow::backToToday);
 }
 //析构函数
 MainWindow::~MainWindow()
 {
-    allTask.saveAllTaskToFile();
     delete ui;
 }
 //初始化
 void MainWindow::initial(){
-    cout<<allTask;
+    setting();
     week_list<<"周一"<<"周二"<<"周三"<<"周四"<<"周五"<<"周六"<<"周日";
     tab_list<< ui->tab << ui->tab_2 << ui->tab_3 << ui->tab_4 << ui->tab_5 << ui->tab_6 << ui->tab_7;
     label_list << ui->label << ui->label_2 << ui->label_3 << ui->label_4 << ui->label_5 << ui->label_6 << ui->label_7;
     item_list << "任务名称" << "任务等级" << "任务开始时间" << "任务结束时间" << "任务标签" << "日期";
-    for(int i = 0; i < 5;i++)
+    for(int i = 0; i < 54;i++)
         for(int j = 0;j < 7; j++)
             row[i][j] = 0;
     for(int i = 0;i < 7;i++){
@@ -65,22 +66,7 @@ void MainWindow::initial(){
     }
 
     QDateTime timeOfToday = QDateTime::currentDateTime();
-    QString dayOfToday = timeOfToday.toString("dd");
     int nowIndex = match(timeOfToday.toString("ddd"));
-    int day = dayOfToday.toInt();
-    QDateTime firstDay = timeOfToday.addDays(1 - day);
-    int firstDayOfWeek = match(firstDay.toString("ddd"));
-    if(firstDayOfWeek != 0){
-        firstDay = firstDay.addDays(-firstDayOfWeek);
-    }
-    for(int i = 0; i < 5; i++){
-        QList<QString> l;
-        for(int j = 0;j < 7;j++){
-            l << firstDay.addDays(i * 7 + j).toString("MM-dd");
-        }
-        weekContainer.insert(i + 1,l);
-    }
-
     for(int i = 0; i < 7;i++){
         list.at(i)->setFixedSize(830,700);
         //设置不可编辑
@@ -93,7 +79,9 @@ void MainWindow::initial(){
     }
     //设置默认index
     currentWeekIndex = getWeek(timeOfToday);
-    for(int i = 0;i < 7; i++){
+    QString month = QString("%1%2").arg(weekContainer[currentWeekIndex].at(3).split("-")[0]).arg("月");
+    ui->monthLabel->setText(month);
+        for(int i = 0;i < 7; i++){
         label_list.at(i)->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
         label_list.at(i)->setText(weekContainer[currentWeekIndex].at(i).split("-")[1]);
         if(allTask.ifExistDayTaskList(weekContainer[currentWeekIndex].at(i).toStdString())){
@@ -166,6 +154,8 @@ void MainWindow::addTask(){
         if(currentWeekIndex != weekIndex){
             if(currentWeekIndex != 0) cls();
             currentWeekIndex = weekIndex;
+            QString month = QString("%1%2").arg(weekContainer[currentWeekIndex].at(3).split("-")[0]).arg("月");
+            ui->monthLabel->setText(month);
             for(int i = 1;i <=7; i++){
                 //设置label上的日
                 label_list.at(i - 1)->setText(weekContainer[currentWeekIndex].at(i - 1).split("-")[1]);
@@ -179,9 +169,7 @@ void MainWindow::addTask(){
             showOnScreen(dayTask,w);
         }
         ui->tabWidget->setCurrentIndex(w);
-    }
-//    allTask.saveAllTaskToFile();
-//    allTask = allTask.readFromFile();
+    }  
 }
 
 void MainWindow::deleteTask(){
@@ -268,6 +256,7 @@ void MainWindow::modifyTask(){
             hintDialog("选择错误","Error");
         }
         else{
+            QString label = ui->monthLabel->text();
             QAbstractItemModel *modessl = list.at(nowIndex)->model();
             QModelIndex index_today = modessl->index(currentRow,5);
             Task task = getData(currentRow);
@@ -313,6 +302,9 @@ void MainWindow::modifyTask(){
                 if(taskStartTime > taskEndTime){
                     hintDialog("输入时间错误","Error");
                     return;
+                }
+                else{
+                    label = startTimeInput->getTime().toString("MM");
                 }
                 break;
             }
@@ -365,6 +357,8 @@ void MainWindow::modifyTask(){
                 if(weekIndex != currentWeekIndex){
                     cls();
                     currentWeekIndex = weekIndex;
+                    QString month = QString("%1%2").arg(weekContainer[currentWeekIndex].at(3).split("-")[0]).arg("月");
+                    ui->monthLabel->setText(month);
                     QList<QString> l = weekContainer[currentWeekIndex];
                     for(int i = 0; i < 7; i++){
                         label_list.at(i)->setText(l.at(i).split("-")[1]);
@@ -402,7 +396,7 @@ void MainWindow::paintEvent(QPaintEvent* ){
 int MainWindow::getWeek(QDateTime timeOfToday){
     QString s = timeOfToday.toString("MM-dd");
     int week = 1;
-    for(;week <= 5; week++){
+    for(;week <= 54; week++){
         QList<QString> ql = weekContainer[week];
         for(int i = 0; i < 7 ;i++){
             if(ql.at(i) == s)
@@ -448,6 +442,8 @@ void MainWindow::up(){
     if(currentWeekIndex > 1){
         cls();
         currentWeekIndex = currentWeekIndex - 1;
+        QString month = QString("%1%2").arg(weekContainer[currentWeekIndex].at(3).split("-")[0]).arg("月");
+        ui->monthLabel->setText(month);
         for(int i = 0;i < 7; i++){
             label_list.at(i)->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
             label_list.at(i)->setText(weekContainer[currentWeekIndex].at(i).split("-")[1]);
@@ -461,9 +457,11 @@ void MainWindow::up(){
 }
 
 void MainWindow::down(){
-    if(currentWeekIndex < 5){
+    if(currentWeekIndex < 54){
         cls();
         currentWeekIndex = currentWeekIndex + 1;
+        QString month = QString("%1%2").arg(weekContainer[currentWeekIndex].at(3).split("-")[0]).arg("月");
+        ui->monthLabel->setText(month);
         for(int i = 0;i < 7; i++){
             label_list.at(i)->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
             label_list.at(i)->setText(weekContainer[currentWeekIndex].at(i).split("-")[1]);
@@ -483,4 +481,37 @@ void MainWindow::showAllTask(){
 void MainWindow::showFinishedTask(){
     showDialog* dialog = new showDialog(1,this);
     dialog->show();
+}
+
+void MainWindow::setting(){
+    QDateTime firstDayOf2020(QDate(2020,1,1));
+    firstDay = firstDayOf2020;
+    int firstDayOfWeekIndex = match(firstDayOf2020.toString("ddd"));
+    if(firstDayOfWeekIndex != 0){
+        firstDay = firstDayOf2020.addDays(-firstDayOfWeekIndex);
+    }
+    for(int i = 0;i < 54;i++){
+        QList<QString> l;
+        for(int j = 0;j < 7;j++){
+            QString s = firstDay.addDays(i * 7 + j).toString("MM-dd");
+            l << s;
+        }
+        weekContainer.insert(i + 1,l);
+    }
+}
+
+void MainWindow::backToToday(){
+    cls();
+    QDateTime today = QDateTime::currentDateTime();
+    int todayWeekIndex = getWeek(today);
+    int todayDayIndex = match(today.toString("ddd"));
+    currentWeekIndex = todayWeekIndex;
+    for(int i = 0;i < 7;i++){
+        label_list.at(i)->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+        label_list.at(i)->setText(weekContainer[currentWeekIndex].at(i).split("-")[1]);
+        if(allTask.ifExistDayTaskList(weekContainer[currentWeekIndex].at(i).toStdString())){
+            showOnScreen(allTask.getDayTaskMap(weekContainer[currentWeekIndex].at(i).toStdString()),i);
+        }
+    }
+    ui->tabWidget->setCurrentIndex(todayDayIndex);
 }

@@ -7,6 +7,7 @@
 #include<QLabel>
 #include<QMap>
 #include"global.h"
+#include<QDateTime>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 
@@ -36,14 +37,17 @@ public:
     void paintEvent(QPaintEvent* );
     void cls();
     void finished(int row,int col);
-    int row[5][7];
+    int row[54][7];
     void hintDialog(QString s1,QString s2 = "");
     Task getData(int currentRow);
     void up();
     void down();
     void showAllTask();
     void showFinishedTask();
+    void setting();
+    void backToToday();
 private:
+    QDateTime firstDay;
     QMap<int,QList<QString>> weekContainer; //下标从1开始
     Ui::MainWindow *ui;
 };
