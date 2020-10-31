@@ -38,20 +38,31 @@ void AllTask::setDayTaskMap(string time_of_Today, DayTask dayTask) {
 
 //从文件"allTask.txt"中读取allTask
 AllTask AllTask::readFromFile() {
+<<<<<<< HEAD
     ifstream ifs(":\\allTask.txt", ios::in | ios::binary);
+=======
+    ifstream ifs("D:\\allTask.txt", ios::binary | ios::in);
+>>>>>>> 13cfd61692f6f0362127d80cda83511b28f18a17
     if (!ifs.is_open()) {
         ifs.close();
         return AllTask();
     } else {
-//        AllTask allTask_read;
-//        ifs.read((char *)&allTask_read, sizeof(AllTask));
-//        ifs.close();
-//        (*this) = allTask_read;
-//        return (*this);
         AllTask allTask_help;
         DayTask dayTask;
         Task task;
+//        char* time_of_Today = new char[10];
         string time_of_Today;
+        string start_time;
+        string end_time;
+        string task_name;
+        TaskLevel task_level;
+        int level;
+        string task_label;
+        int start_time_size;
+        int end_time_size;
+        int task_name_size;
+        int task_label_size;
+        int time_of_Today_size;
         //读取总任务类
         //1.读取总任务类里各成员变量个数
         //a.读取总任务个数
@@ -61,31 +72,116 @@ AllTask AllTask::readFromFile() {
         //c.读取日任务个数
         int dayTask_map_size;
         ifs.read((char*)&allTask_size,sizeof(int));
+        cout<<allTask_size<<endl;
         ifs.read((char*)&finishedTask_size,sizeof(int));
+        cout<<finishedTask_size<<endl;
         ifs.read((char*)&dayTask_map_size,sizeof(int));
+        cout<<dayTask_map_size<<endl;
         //2.逐个读取总任务并加入集合
         for (int i = 1; i <= allTask_size; ++i){
-            ifs.read((char*)&task,sizeof(Task));
+            ifs.read((char*)&start_time_size,sizeof(int));
+            cout<<start_time_size<<endl;
+            ifs.read((char*)&end_time_size,sizeof(int));
+            cout<<end_time_size<<endl;
+            ifs.read((char*)&task_name_size,sizeof(int));
+            cout<<task_name_size<<endl;
+            ifs.read((char*)&task_label_size,sizeof(int));
+            cout<<task_label_size<<endl;
+            ifs.read((char*)&start_time,start_time_size);
+            start_time = (string)start_time;
+            cout<<start_time<<endl;
+            ifs.read((char*)&end_time,end_time_size);
+            end_time = (string)end_time;
+            cout<<end_time<<endl;
+            ifs.read((char*)&task_name,task_name_size);
+            task_name = (string)task_name;
+            cout<<task_name<<endl;
+            ifs.read((char*)&level,sizeof(int));
+            cout<<level<<endl;
+            if(level==1)
+                task_level=TaskLevel::level_1;
+            else
+                task_level = (level==2)?TaskLevel::level_2:TaskLevel::level_3;
+            ifs.read((char*)&task_label,task_label_size);
+            cout<<task_label<<endl;
+            Task task(start_time,end_time,task_name,task_level,task_label);
             allTask_help.addAllTask(task);
+            cout<<"*"<<task<<"*";
         }
         //3.逐个读取已完成任务并加入集合
         for (int i = 1; i <= finishedTask_size; ++i){
-            ifs.read((char*)&task,sizeof(Task));
+            ifs.read((char*)&start_time_size,sizeof(int));
+            cout<<start_time_size<<endl;
+            ifs.read((char*)&end_time_size,sizeof(int));
+            cout<<end_time_size<<endl;
+            ifs.read((char*)&task_name_size,sizeof(int));
+            cout<<task_name_size<<endl;
+            ifs.read((char*)&task_label_size,sizeof(int));
+            cout<<task_label_size<<endl;
+            ifs.read((char*)&start_time,start_time_size);
+            start_time = (string)start_time;
+            cout<<start_time<<endl;
+            ifs.read((char*)&end_time,end_time_size);
+            end_time = (string)end_time;
+            cout<<end_time<<endl;
+            ifs.read((char*)&task_name,task_name_size);
+            task_name = (string)task_name;
+            cout<<task_name<<endl;
+            ifs.read((char*)&level,sizeof(int));
+            cout<<level<<endl;
+            if(level==1)
+                task_level=TaskLevel::level_1;
+            else
+                task_level = (level==2)?TaskLevel::level_2:TaskLevel::level_3;
+            ifs.read((char*)&task_label,task_label_size);
+            cout<<task_label<<endl;
+            Task task(start_time,end_time,task_name,task_level,task_label);
+            cout<<"*"<<task<<"*";
             allTask_help.addFinishedTask(task);
         }
         //4.逐个读取日任务类并加入map集合
         for (int i = 1; i <= dayTask_map_size; ++i){
-            ifs.read((char*)&time_of_Today,sizeof(string));
+            ifs.read((char*)&time_of_Today_size,sizeof(int));
+            ifs.read((char*)&time_of_Today,time_of_Today_size);
+            time_of_Today = (string)time_of_Today;
+            cout<<"*"<<time_of_Today<<"*";
             //读取日任务类
             //1.给日任务类赋时间
             dayTask.setTimeOfToday(time_of_Today);
             //2.读取日任务类里任务个数
             int task_size;
             ifs.read((char*)&task_size,sizeof(int));
+            cout<<task_size<<endl;
             //3.逐个读取任务赋给日任务类
             for (int i = 1; i <= task_size; ++i){
-                ifs.read((char*)&task,sizeof(task));
-                dayTask.addTask(task);
+                ifs.read((char*)&start_time_size,sizeof(int));
+                cout<<start_time_size<<endl;
+                ifs.read((char*)&end_time_size,sizeof(int));
+                cout<<end_time_size<<endl;
+                ifs.read((char*)&task_name_size,sizeof(int));
+                cout<<task_name_size<<endl;
+                ifs.read((char*)&task_label_size,sizeof(int));
+                cout<<task_label_size<<endl;
+                ifs.read((char*)&start_time,start_time_size);
+                start_time = (string)start_time;
+                cout<<start_time<<endl;
+                ifs.read((char*)&end_time,end_time_size);
+                end_time = (string)end_time;
+                cout<<end_time<<endl;
+                ifs.read((char*)&task_name,task_name_size);
+                task_name = (string)task_name;
+                cout<<task_name<<endl;
+                ifs.read((char*)&level,sizeof(int));
+                cout<<level<<endl;
+                if(level==1)
+                    task_level=TaskLevel::level_1;
+                else
+                    task_level = (level==2)?TaskLevel::level_2:TaskLevel::level_3;
+                ifs.read((char*)&task_label,task_label_size);
+                cout<<task_label<<endl;
+                Task task(start_time,end_time,task_name,task_level,task_label);
+                cout<<"*"<<task<<"*";
+                dayTask.justAddTask(task);
             }
             allTask_help.setDayTaskMap(time_of_Today,dayTask);
         }
@@ -96,9 +192,6 @@ AllTask AllTask::readFromFile() {
 //把allTask保存到文件"allTask.txt"中
 void AllTask::saveAllTaskToFile() {
     ofstream ofs("D:\\allTask.txt", ios::out | ios::binary | ios::trunc);
-//    AllTask allTask_write = (*this);
-//    ofs.write((char*)&allTask_write,sizeof(AllTask));
-//    ofs.close();
     //写入总任务类
     //1.写入总任务类里各成员变量个数，方便读取
     //a.写入总任务个数
@@ -112,23 +205,79 @@ void AllTask::saveAllTaskToFile() {
     ofs.write((char*)&dayTask_map_size,sizeof(int));
     //2.逐个写入总任务集合中任务
     for (auto task:(*this).allTask_list) {
-        ofs.write((char*)&task,sizeof(Task));
-        cout<<task;
+        int start_time_size=sizeof(task.getStartTime());
+        int end_time_size=sizeof(task.getEndTime());
+        int task_name_size=sizeof(task.getTaskName());
+        int task_label_size=sizeof(task.getTaskLabel());
+        ofs.write((char*)&start_time_size,sizeof(int));
+        ofs.write((char*)&end_time_size,sizeof(int));
+        ofs.write((char*)&task_name_size,sizeof(int));
+        ofs.write((char*)&task_label_size,sizeof(int));
+        ofs.write((char*)&task.getStartTime(),sizeof(task.getStartTime()));
+        ofs.write((char*)&task.getEndTime(),sizeof(task.getEndTime()));
+        ofs.write((char*)&task.getTaskName(),sizeof(task.getTaskName()));
+        int level;
+        if(task.getTaskLevel()==TaskLevel::level_1)
+            level = 1;
+        else
+            level = (task.getTaskLevel()==TaskLevel::level_2)?2:3;
+        ofs.write((char*)&level,sizeof(int));
+        ofs.write((char*)&task.getTaskLabel(),sizeof(task.getTaskLabel()));
     }
     //3.逐个写入已完成任务集合中任务
     for (auto task:(*this).finishedTask_list) {
-        ofs.write((char*)&task,sizeof(Task));
+        int start_time_size=sizeof(task.getStartTime());
+        int end_time_size=sizeof(task.getEndTime());
+        int task_name_size=sizeof(task.getTaskName());
+        int task_label_size=sizeof(task.getTaskLabel());
+        ofs.write((char*)&start_time_size,sizeof(int));
+        ofs.write((char*)&end_time_size,sizeof(int));
+        ofs.write((char*)&task_name_size,sizeof(int));
+        ofs.write((char*)&task_label_size,sizeof(int));
+        ofs.write((char*)&task.getStartTime(),sizeof(task.getStartTime()));
+        ofs.write((char*)&task.getEndTime(),sizeof(task.getEndTime()));
+        ofs.write((char*)&task.getTaskName(),sizeof(task.getTaskName()));
+        int level;
+        if(task.getTaskLevel()==TaskLevel::level_1)
+            level = 1;
+        else
+            level = (task.getTaskLevel()==TaskLevel::level_2)?2:3;
+        ofs.write((char*)&level,sizeof(int));
+        ofs.write((char*)&task.getTaskLabel(),sizeof(task.getTaskLabel()));
     }
     //4.逐个写入日任务类map集合中日期与日任务类
     for (auto dayTask_map:(*this).DayTask_map) {
-        ofs.write((char*)&dayTask_map.first,sizeof(string));
+//        char* time_of_Today = new char[10];
+//        dayTask_map.first.copy(time_of_Today,10);
+//        cout<<"*"<<time_of_Today<<"*";
+        string time_of_Today = dayTask_map.first;
+        int time_of_Today_size = sizeof (time_of_Today);
+        ofs.write((char*)&time_of_Today_size,sizeof(int));
+        ofs.write((char*)&time_of_Today,sizeof(time_of_Today));
         //写入日任务类
         //1.写入日任务类里任务个数，方便读取任务
         int task_size = dayTask_map.second.getTaskList().size();
         ofs.write((char*)&task_size,sizeof(int));
         //2.逐个写入日任务类里任务
         for (auto task:dayTask_map.second.getTaskList()) {
-            ofs.write((char*)&task,sizeof(task));
+            int start_time_size=sizeof(task.getStartTime());
+            int end_time_size=sizeof(task.getEndTime());
+            int task_name_size=sizeof(task.getTaskName());
+            int task_label_size=sizeof(task.getTaskLabel());
+            ofs.write((char*)&start_time_size,sizeof(int));
+            ofs.write((char*)&end_time_size,sizeof(int));
+            ofs.write((char*)&task_name_size,sizeof(int));
+            ofs.write((char*)&task_label_size,sizeof(int));
+            ofs.write((char*)&task.getStartTime(),sizeof(task.getStartTime()));
+            ofs.write((char*)&task.getEndTime(),sizeof(task.getEndTime()));
+            ofs.write((char*)&task.getTaskName(),sizeof(task.getTaskName()));
+            int level;
+            if(task.getTaskLevel()==TaskLevel::level_1)
+                level = 1;
+            else
+                level = (task.getTaskLevel()==TaskLevel::level_2)?2:3;
+            ofs.write((char*)&level,sizeof(int));
+            ofs.write((char*)&task.getTaskLabel(),sizeof(task.getTaskLabel()));
         }
     }
     ofs.close();
@@ -177,16 +326,17 @@ void AllTask::setFinishedTaskList(const list<Task> &finishedTaskList) {
 ostream &operator<<(ostream &os, const AllTask &allTask) {
     os << "allTask_list: " << endl;
     for (auto task:allTask.allTask_list) {
-        os << task << endl;
+        os << task;
     }
     os << " finishedTask_list: " << endl;
     for (auto task:allTask.finishedTask_list) {
-        os << task << endl;
+        os << task;
     }
     os << " DayTask_map: " << endl;
     for (auto dayTask_map:allTask.DayTask_map) {
-        os << dayTask_map.second << endl;
+        os << dayTask_map.second;
     }
+    os<<endl;
     return os;
 }
 

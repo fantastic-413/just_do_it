@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by L&S&P& on 2020/9/25.
 //
 
@@ -24,6 +24,7 @@ private:
 public:
     //添加任务 addTask()
     void addTask(Task task);
+    void justAddTask(Task task);
     //删除任务 deleteTask(Task task)
     void deleteTask(Task task);
     //完成任务  finishTask()
