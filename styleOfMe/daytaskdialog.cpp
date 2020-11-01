@@ -15,7 +15,7 @@ DayTaskDialog::DayTaskDialog(QWidget *parent) :
 
 void DayTaskDialog::init()
 {
-    setWindowTitle("当天任务");
+    setWindowTitle("任务");
     setWindowIcon(QIcon(":/当天任务.jpg"));
     QStringList strList;
     QString taskName;

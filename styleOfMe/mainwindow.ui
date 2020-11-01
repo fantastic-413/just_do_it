@@ -230,16 +230,9 @@
      <x>0</x>
      <y>0</y>
      <width>1053</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
-    <property name="title">
-     <string>语言</string>
-    </property>
-    <addaction name="action111"/>
-    <addaction name="actionEnglish"/>
-   </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>查看</string>
@@ -253,7 +246,6 @@
     </property>
     <addaction name="actiony"/>
    </widget>
-   <addaction name="menu"/>
    <addaction name="menu_2"/>
    <addaction name="menu_3"/>
   </widget>

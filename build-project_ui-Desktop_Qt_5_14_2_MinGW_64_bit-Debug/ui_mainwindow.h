@@ -59,7 +59,6 @@ public:
     QLabel *label_7;
     QLabel *monthLabel;
     QMenuBar *menubar;
-    QMenu *menu;
     QMenu *menu_2;
     QMenu *menu_3;
     QStatusBar *statusbar;
@@ -170,9 +169,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1053, 26));
-        menu = new QMenu(menubar);
-        menu->setObjectName(QString::fromUtf8("menu"));
+        menubar->setGeometry(QRect(0, 0, 1053, 21));
         menu_2 = new QMenu(menubar);
         menu_2->setObjectName(QString::fromUtf8("menu_2"));
         menu_3 = new QMenu(menubar);
@@ -182,11 +179,8 @@ public:
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
 
-        menubar->addAction(menu->menuAction());
         menubar->addAction(menu_2->menuAction());
         menubar->addAction(menu_3->menuAction());
-        menu->addAction(action111);
-        menu->addAction(actionEnglish);
         menu_2->addAction(actionAllTask);
         menu_2->addAction(actionFinishedTask);
         menu_3->addAction(actiony);
@@ -229,7 +223,6 @@ public:
         label_6->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         monthLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        menu->setTitle(QCoreApplication::translate("MainWindow", "\350\257\255\350\250\200", nullptr));
         menu_2->setTitle(QCoreApplication::translate("MainWindow", "\346\237\245\347\234\213", nullptr));
         menu_3->setTitle(QCoreApplication::translate("MainWindow", "\350\247\206\345\233\276", nullptr));
     } // retranslateUi
