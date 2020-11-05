@@ -117,6 +117,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="ringBtn">
+       <property name="text">
+        <string>到时提醒</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QLabel" name="label">
@@ -230,7 +237,7 @@
      <x>0</x>
      <y>0</y>
      <width>1053</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_2">

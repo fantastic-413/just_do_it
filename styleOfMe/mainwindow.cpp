@@ -21,6 +21,7 @@
 #include<QPixmap>
 #include"showdialog.h"
 #include "calendarwidget.h"
+#include<QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -44,7 +45,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionAllTask,&QAction::triggered,this,&MainWindow::showAllTask);
     //已完成任务栏
     connect(ui->actionFinishedTask,&QAction::triggered,this,&MainWindow::showFinishedTask);
-
+    //到时提醒
+    connect(ui->ringBtn,&QPushButton::clicked,this,&MainWindow::ring);
     //月视图
     connect(ui->actiony, &QAction::triggered, this, [=](){
         CalendarWidget *calendar = new CalendarWidget(nullptr);
@@ -244,9 +246,57 @@ void MainWindow::showOnScreen(DayTask dayTask,int w){
         list.at(w)->setItem(current_Row,5,new QTableWidgetItem(QString::fromStdString(dayTask.getTimeOfToday())));
         current_Row++;
         disconnect(list.at(w),&QTableWidget::cellDoubleClicked,this,&MainWindow::finished);
+        disconnect(list.at(w),&QTableWidget::cellDoubleClicked,this,&MainWindow::ring);
         connect(list.at(w),&QTableWidget::cellDoubleClicked,this,&MainWindow::finished);
+        connect(list.at(w),&QTableWidget::cellDoubleClicked,this,&MainWindow::ring);
     }
     row[currentWeekIndex - 1][w] = current_Row - 1;
+}
+
+void MainWindow::ring(){
+    int nowIndex = ui->tabWidget->currentIndex();
+    if(nowIndex != -1 && row[currentWeekIndex - 1][nowIndex] > 0){
+        int currentRow = list.at(nowIndex)->currentRow();
+        //提醒
+        QAbstractItemModel *modessl = list.at(nowIndex)->model();
+        QModelIndex index_today = modessl->index(currentRow,5);
+        string time_Of_Today = modessl->data(index_today).toString().toStdString();
+        Task task = getData(currentRow);
+        QMessageBox* remind_Dialog = new QMessageBox(this);
+        remind_Dialog->setWindowTitle("Ring dialog");
+        remind_Dialog->setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+        remind_Dialog->button(QMessageBox::Ok)->setText("确定");
+        remind_Dialog->button(QMessageBox::Cancel)->setText("取消");
+        remind_Dialog->setText("您确定为该任务设置到时提醒？");
+        int x = remind_Dialog->exec();
+        if(x == QMessageBox::Ok){
+            string time_Of_Today = modessl->data(index_today).toString().toStdString();
+            QString s = QString("%1 2020-%2 %3").arg(week_list.at(nowIndex)).arg(modessl->data(index_today).toString()).arg(QString::fromStdString(task.getStartTime()));
+            TimeModifyDialog* ringTimeInput = new TimeModifyDialog(QDateTime::fromString(s,"ddd yyyy-MM-dd hh:mm"),"到时提醒时间",this);
+            ringTimeInput->exec();
+            QDateTime now = QDateTime::currentDateTime();
+            QDateTime ringTime = ringTimeInput->getTime();
+            if(now.msecsTo(ringTime) <= 0){
+                hintDialog("输入时间信息错误","Error");
+            }
+            else{
+                QTimer::singleShot(now.msecsTo(ringTime),this,[=](){
+                    hintDialog("ring~~~~~~~~","ring");
+                    QApplication::beep();
+                });
+            }
+
+        }
+        else{
+            return;
+        }
+    }
+    else if(nowIndex == -1){
+        hintDialog("输入错误","Error");
+    }
+    else {
+        hintDialog("任务栏为空，请先设置任务","Error");
+    }
 }
 
 void MainWindow::cls(){

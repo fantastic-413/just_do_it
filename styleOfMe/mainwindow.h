@@ -46,6 +46,7 @@ public:
     void showFinishedTask();
     void setting();
     void backToToday();
+    void ring();
 private:
     QDateTime firstDay;
     QMap<int,QList<QString>> weekContainer; //下标从1开始
